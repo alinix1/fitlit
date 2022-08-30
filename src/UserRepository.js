@@ -14,7 +14,7 @@ class UserRepository {
         }, 0)
         return totals / this.users.length;
     }
-    
+
 }
 
 export default UserRepository;
