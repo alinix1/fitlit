@@ -7,7 +7,9 @@ describe('User', () => {
 
     beforeEach(() => {
         user1 = new User(userData[0])
-    
+        user2 = new User(userData[1])
+        user3 = new User(userData[2])
+
     });
 
     it('should be a function', () => {
@@ -17,7 +19,7 @@ describe('User', () => {
 
     it('should be an instance of User', () => {
         expect(user1).to.be.an.instanceof(User);
-    }); 
+    });
 
     it('should have a user id', () => {
         expect(user1.id).to.be.finite;
@@ -34,7 +36,7 @@ describe('User', () => {
     });
 
     it('should have a user address', () => {
-        expect(user1.address).to.be.a('string'); 
+        expect(user1.address).to.be.a('string');
         expect(user1.address).to.equal("15195 Nakia Tunnel, Erdmanport VA 19901-1697");
     });
 

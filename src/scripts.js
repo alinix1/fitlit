@@ -1,42 +1,58 @@
 import './css/styles.css';
+
 import './images/turing-logo.png'
+import { userData } from './userData';
+import UserRepository from '../src/UserRepository.js';
 import User from './User';
-import userData from './data/userData.js';
-import UserRepository from './UserRepository';
+
 
 
 // --------------------------------------------------- QUERY SELECTORS
-const welcomeUserBox = document.getElementById('welcomeUser-box');
-const userDataBox = document.getElementById('userData-box');
-const activityBox = document.getElementById('activity-Box');
-const sleepBox = document.getElementById('sleep-box');
-const hydrationBox = document.getElementById('hydration-box');
-const communityBox = document.getElementById('community-box');
+let welcomeUserBox = document.getElementById('welcomeUser-box');
+let userDataBox = document.querySelector('#userData-box');
+let activityBox = document.getElementById('activity-Box');
+let sleepBox = document.getElementById('sleep-box');
+let hydrationBox = document.getElementById('hydration-box');
+let communityBox = document.getElementById('community-box');
 
 // --------------------------------------------------- GLOBAL VARIABLES
 let userRepository = new UserRepository(); // <------ may need parameter
-let user, randomUser;
+let user;
+let randomUser;
 let users = [];
 
 // --------------------------------------------------- EVENT LISTENERS
 
+  userDataBox.addEventListener('click', displayUserData);
 
 // --------------------------------------------------- FUNCTIONS
-function getRandomId(userList) {
-    return Math.floor(Math.random() * userList.length);
+function clickTest() {
+  console.log('banana')
+}
+function instantiateData(data) {
+  users = userData.map(user => new User(user));
+  userRepository = new UserRepository(users)
 }
 
 function displayUserData() {
-    randomUser = getRandomId(userRepository.users);
-    user = userRepository.users[randomUser];
-    displayPageInfo();
+  instantiateData();
+  console.log(userRepository)
+  randomUser = getRandomId(userRepository.users);
+  user = userRepository.users[randomUser];
+  displayAllData()
 }
 
-function displayPageInfo() {
-    userDataBox.innerText = `${user.name}`;
+function displayAllData() {
+    welcomeUserBox.innerText = `Welcome, ${user.name}!`;
+    userDataBox.innerText = `Name: ${user.name} \n Email: ${user.email} \n
+    Address: ${user.address} \n Stride Length: ${user.strideLength} \n Daily Step Goal: ${user.dailyStepGoal}`
     console.log('ayyyyy', user.name);
+}
+
+function getRandomId(userList) {
+    return Math.floor(Math.random() * userList.length);
 }
 // **THINK TANK**
 // going to need a function that gets all the userData
-// change user button later....maybe??? 
+// change user button later....maybe???
 // get first name
