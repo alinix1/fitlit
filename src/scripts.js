@@ -36,6 +36,7 @@ Promise.all([apiCalls.getUserData()])
 // --------------------------------------------------- FUNCTIONS
 function instantiateData(data) {
   users = data.userData.map(user => new User(user));
+  console.log(data.userData)
   userRepository = new UserRepository(users)
 }
 
