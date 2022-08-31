@@ -5,8 +5,6 @@ import UserRepository from '../src/UserRepository.js';
 import User from './User';
 import apiCalls from './apiCalls'
 
-
-
 // --------------------------------------------------- QUERY SELECTORS
 let welcomeUserBox = document.getElementById('welcomeUser-box');
 let userDataBox = document.querySelector('#userData-box');
@@ -56,7 +54,6 @@ function displayAllData() {
 function getRandomId(userList) {
     return Math.floor(Math.random() * userList.length);
 }
+
 // **THINK TANK**
-// going to need a function that gets all the userData
-// change user button later....maybe???
-// get first name
+
