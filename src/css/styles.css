@@ -5,22 +5,41 @@ background-color: #252020;
 color: #ffffff;
 };
 
-
 .widgets {
 background-color: #ca3838;
 color: #252020;
 font-style: italic;
 }; */
 
+/* @font-face {
+    font-family: 'home_minimalistminimalist';
+    src: url('../src/font/home-minimalist-webfont.woff2') format('woff2'),
+         url('../src/font/home-minimalist-webfont.woff') format('woff');
+    font-weight: normal;
+} */
+
 /* -----------------------------------------------TAGS */
+body {
+    background-color: #3e3e3e;
+}
+
 main {
     display: flex;
     align-items: stretch;
-    gap: 20px;
-    /* min-height: 100%; */
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
+    gap: 5px;
+    /* font-family: 'home_minimalistminimalist', Arial, sans-serif; */
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    font-style: normal;
     text-align: center;
+}
+
+div {
+    opacity: 0.9;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 10px;
+    border-radius: 25px;
+    height: 190px;
 }
 
 /* -----------------------------------------------LEFT-SIDE */
@@ -40,9 +59,6 @@ main {
     font-size: 40px;
 }
 
-.logo-img {
-
-}
 
 /* ----------------------------------------------- WIDGET-AREA */
 .widget-box {
@@ -56,49 +72,36 @@ main {
 }
 
 .welcomeUser-box {
-    background-color: #ca3838;
-    height: 150px;
+    display: flex;
+    align-items: center;
     width: 30%;
     color: #252020;
-    radius: 10px;
+    font-size: 30px;
 }
 
 .userData-box {
-    background-color: #ca3838;
-    height: 150px;
     width: 60%;
     color: #252020;
-    radius: 10px;
 }
 
 .activity-box {
-    background-color: #ca3838;
-    height: 150px;
+    display: flex;
+    align-items: center;
     width: 200px;
     color: #252020;
-    radius: 10px;
 }
 
 .sleep-box {
-    background-color: #ca3838;
-    height: 150px;
     width: 200px;
     color: #252020;
-    radius: 10px;
 }
 
 .hydration-box {
-    background-color: #ca3838;
-    height: 150px;
     width: 200px;
     color: #252020;
-    radius: 10px;
 }
 
 .community-box {
-    background-color: #ca3838;
-    height: 150px;
-    width: 85%;
+    width: 90%;
     color: #252020;
-    radius: 10px;
 }
