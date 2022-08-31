@@ -1,5 +1,15 @@
-// Your fetch requests will live here!
+// --------------------------------------------------- FETCH PROMISES
+let fetchData = (data) => {
+    return fetch(data)
+            .then(response => response.json())
+            .catch(err => console.log('ERROR!!!!'))
+};
 
+const apiCalls = {
 
-console.log('I will be a fetch request!')
+    getUserData: () => {
+        return fetchData('https://fitlit-api.herokuapp.com/api/v1/users')
+    }
+}
 
+export default apiCalls
