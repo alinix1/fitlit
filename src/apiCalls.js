@@ -12,7 +12,7 @@ const apiCalls = {
         return fetchData('https://fitlit-api.herokuapp.com/api/v1/sleep')
     },
     getHydrationData: () => {
-        return fetchData('https://fitlit-api.herokuapp.com/api/v1/hydration')
+        return fetchData('https://fitlit-api.herokuapp.com/api/v1/hydration/')
     }
 }
 

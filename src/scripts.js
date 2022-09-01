@@ -1,9 +1,14 @@
 import './css/styles.css';
 import './images/turing-logo.png'
-import { userData } from './userData';
 import UserRepository from '../src/UserRepository.js';
 import User from './User';
+import Sleep from './Sleep'
+import Hydration from './Hydration'
 import apiCalls from './apiCalls'
+import { userData } from './userData';
+import { hydrationData } from './userData'
+import { sleepData } from './userData'
+
 
 // --------------------------------------------------- QUERY SELECTORS
 let welcomeUserBox = document.getElementById('welcomeUser-box');
@@ -19,12 +24,13 @@ let user;
 let randomUser;
 let users = [];
 let nestedData
+let hydrationInfo = [];
 
 // --------------------------------------------------- EVENT LISTENERS
 userDataBox.addEventListener('click', displayUserData);
 
 // --------------------------------------------------- FETCH PROMISES
-Promise.all([apiCalls.getUserData()])
+Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData()])
   .then((data) => {
     const allUserData = data.reduce((userList, userItem) => {
       return userList = {...userList, ...userItem};
@@ -38,11 +44,14 @@ function instantiateData(data) {
   users = data.userData.map(user => new User(user));
   console.log(data.userData)
   userRepository = new UserRepository(users)
+  hydrationInfo = data.hydrationData.map(data => new Hydration(data, userRepository)) // CHANGE DATA AFTER MAP
 }
 
-function displayUserData(data) {
+function displayUserData(date, id) {
   randomUser = getRandomId(userRepository.users);
   user = userRepository.users[randomUser];
+  id = user.id
+  date = user.date
   displayAllData()
 }
 
@@ -57,4 +66,3 @@ function getRandomId(userList) {
 }
 
 // **THINK TANK**
-
