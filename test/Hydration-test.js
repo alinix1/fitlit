@@ -3,6 +3,7 @@ import Hydration from '../src/Hydration.js';
 import { userData, hydrationData, sleepData } from '../src/userData';
 
 describe('Hydration', () => {
+
     let hydration, hydration1, hydration2, hydration3;
 
     beforeEach(() => {
@@ -10,11 +11,13 @@ describe('Hydration', () => {
         hydration = new Hydration(hydrationData);
 
     })
+
     it('should be a function', () => {
         expect(Hydration).to.be.a('function');
     });
 
     it('should be an instance of Hydration', () => {
+
         expect(hydration).to.be.an.instanceof(Hydration);
     });
 
@@ -58,6 +61,7 @@ describe('Hydration', () => {
               "2019/06/15": 37,
               "2019/06/16": 69,
               "2019/06/17": 96,
+
               "2019/06/18": 61,
               "2019/06/19": 91,
               "2019/06/20": 50,
@@ -65,9 +69,11 @@ describe('Hydration', () => {
             }
 
 
+
         expect(hydration.getFluidOuncesConsumedPerWeek(1, "2019/06/21", 50)).to.deep.equal(OuncesOneWeek1);
 
         const OuncesOneWeek2 = {
+
               "2019/06/15": 75,
               "2019/06/16": 91,
               "2019/06/17": 96,
@@ -78,6 +84,8 @@ describe('Hydration', () => {
             }
 
 
+
         expect(hydration.getFluidOuncesConsumedPerWeek(2, "2019/06/21", 27)).to.deep.equal(OuncesOneWeek2);
     });
 })
+

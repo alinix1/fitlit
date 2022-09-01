@@ -42,6 +42,7 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData()])
 // --------------------------------------------------- FUNCTIONS
 function instantiateData(data) {
   users = data.userData.map(user => new User(user));
+  console.log(data.userData)
   userRepository = new UserRepository(users)
   hydrationInfo = data.hydrationData.map(data => new Hydration(data, userRepository)) // CHANGE DATA AFTER MAP
 }
