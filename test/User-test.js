@@ -13,7 +13,6 @@ describe('User', () => {
     });
 
     it('should be a function', () => {
-        console.log(user1)
         expect(User).to.be.a('function');
     });
 

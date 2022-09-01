@@ -43,6 +43,7 @@ const userData = [
 ];
 
 const hydrationData = [
+  //1
   {
     "userID": 1,
     "date": "2019/06/15",
@@ -57,6 +58,103 @@ const hydrationData = [
     "userID": 3,
     "date": "2019/06/15",
     "numOunces": 47
+  },
+  //2
+
+  //3
+  {
+    "userID": 1,
+    "date": "2019/06/16",
+    "numOunces": 69
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/16",
+    "numOunces": 91
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/16",
+    "numOunces": 99
+  },
+  //4
+  {
+    "userID": 1,
+    "date": "2019/06/17",
+    "numOunces": 96
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/17",
+    "numOunces": 96
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/17",
+    "numOunces": 28
+  },
+  //5
+  {
+    "userID": 1,
+    "date": "2019/06/18",
+    "numOunces": 61
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/18",
+    "numOunces": 70
+  },
+  {
+  "userID": 3,
+  "date": "2019/06/18",
+  "numOunces": 40
+  },
+  //6
+  {
+    "userID": 1,
+    "date": "2019/06/19",
+    "numOunces": 91
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/19",
+    "numOunces": 76
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/19",
+    "numOunces": 85
+  },
+  //7
+  {
+    "userID": 1,
+    "date": "2019/06/20",
+    "numOunces": 50
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/20",
+    "numOunces": 71
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/20",
+    "numOunces": 51
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/21",
+    "numOunces": 50
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/21",
+    "numOunces": 27
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/21",
+    "numOunces": 41
   }
 ]
 
@@ -82,6 +180,4 @@ const sleepData = [
 ]
 
 
-module.exports = { userData };
-module.exports = { hydrationData };
-module.exports = { sleepData }
+module.exports = { userData, hydrationData, sleepData };
