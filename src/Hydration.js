@@ -36,4 +36,5 @@ class Hydration {
      return perWeek
   }
 }
+
 export default Hydration;

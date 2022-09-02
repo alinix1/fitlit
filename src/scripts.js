@@ -43,6 +43,7 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData()])
 function instantiateData(data) {
   users = data.userData.map(user => new User(user));
   userRepository = new UserRepository(users)
+
   hydrationInfo = new Hydration(data.hydrationData, userRepository)
 
   console.log(hydrationInfo.getFluidOuncesByDate(5, "2019/06/15"))
@@ -53,8 +54,11 @@ function instantiateData(data) {
 
 
 function displayUserData(id, date) {
+
   randomUser = getRandomId(userRepository.users);
   user = userRepository.users[randomUser];
+  id = user.id
+  date = user.date
   displayAllData()
 }
 
