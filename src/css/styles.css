@@ -74,9 +74,11 @@ div {
 .welcomeUser-box {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 30%;
     color: #252020;
     font-size: 30px;
+
 }
 
 .userData-box {
@@ -87,6 +89,7 @@ div {
 .activity-box {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 200px;
     color: #252020;
 }

@@ -8,10 +8,10 @@ describe('Hydration', () => {
 
     beforeEach(() => {
 
+
         hydration = new Hydration(hydrationData);
 
     })
-
     it('should be a function', () => {
         expect(Hydration).to.be.a('function');
     });
@@ -61,7 +61,6 @@ describe('Hydration', () => {
               "2019/06/15": 37,
               "2019/06/16": 69,
               "2019/06/17": 96,
-
               "2019/06/18": 61,
               "2019/06/19": 91,
               "2019/06/20": 50,
@@ -88,4 +87,3 @@ describe('Hydration', () => {
         expect(hydration.getFluidOuncesConsumedPerWeek(2, "2019/06/21", 27)).to.deep.equal(OuncesOneWeek2);
     });
 })
-

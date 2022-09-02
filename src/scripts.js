@@ -42,12 +42,19 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData()])
 // --------------------------------------------------- FUNCTIONS
 function instantiateData(data) {
   users = data.userData.map(user => new User(user));
-  console.log(data.userData)
   userRepository = new UserRepository(users)
-  hydrationInfo = data.hydrationData.map(data => new Hydration(data, userRepository)) // CHANGE DATA AFTER MAP
+
+  hydrationInfo = new Hydration(data.hydrationData, userRepository)
+
+  console.log(hydrationInfo.getFluidOuncesByDate(5, "2019/06/15"))
+
+ // CHANGE DATA AFTER MAP
 }
 
-function displayUserData(date, id) {
+
+
+function displayUserData(id, date) {
+
   randomUser = getRandomId(userRepository.users);
   user = userRepository.users[randomUser];
   id = user.id
@@ -55,11 +62,14 @@ function displayUserData(date, id) {
   displayAllData()
 }
 
+
 function displayAllData() {
-    welcomeUserBox.innerText = `Welcome, ${user.name}!`;
-    userDataBox.innerText = `Name: ${user.name} \n Email: ${user.email} \n
+    welcomeUserBox.innerText = `Welcome  \n ${user.userFirstName()}!`;
+    userDataBox.innerText = `CURRENT USER \n ------- \n Name: ${user.name} \n Email: ${user.email} \n
     Address: ${user.address} \n Stride Length: ${user.strideLength} \n Daily Step Goal: ${user.dailyStepGoal}`
-    activityBox.innerText = `Your daily step goal: ${user.dailyStepGoal} \n Average user step goal: ${userRepository.getUserAverageStepGoal().toFixed(0)}`}
+    activityBox.innerText = `Step Goal \n \n ${user.dailyStepGoal} \n \n ${userRepository.getUserAverageStepGoal().toFixed(0)} \n \n Average Step Goal`
+    // hydrationBox.innerText = `Hydration \n ${hydrationInfo}`
+  }
 
 function getRandomId(userList) {
     return Math.floor(Math.random() * userList.length);

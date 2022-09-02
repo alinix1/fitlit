@@ -155,7 +155,9 @@ const hydrationData = [
     "userID": 3,
     "date": "2019/06/21",
     "numOunces": 41
-  }
+
+  },
+
 ]
 
 const sleepData = [
