@@ -25,9 +25,11 @@ let randomUser;
 let users = [];
 let nestedData
 let hydrationInfo = [];
+let singleUser;
 
 // --------------------------------------------------- EVENT LISTENERS
-userDataBox.addEventListener('click', displayUserData);
+// userDataBox.addEventListener('click', displayUserData);
+window.addEventListener('load', instantiateData)
 
 // --------------------------------------------------- FETCH PROMISES
 Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData()])
@@ -43,22 +45,20 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData()])
 function instantiateData(data) {
   users = data.userData.map(user => new User(user));
   userRepository = new UserRepository(users)
+  singleUser = new User(users[getRandomId()])
+  hydrationInfo = new Hydration(data.hydrationData)
+  console.log(hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id))
 
-  hydrationInfo = new Hydration(data.hydrationData, userRepository)
-
-  console.log(hydrationInfo.getFluidOuncesByDate(5, "2019/06/15"))
-
- // CHANGE DATA AFTER MAP
 }
 
 
 
 function displayUserData(id, date) {
-
-  randomUser = getRandomId(userRepository.users);
+  randomUser = getRandomId(singleUser.id);
   user = userRepository.users[randomUser];
   id = user.id
   date = user.date
+  console.log(user.name)
   displayAllData()
 }
 
@@ -68,11 +68,12 @@ function displayAllData() {
     userDataBox.innerText = `CURRENT USER \n ------- \n Name: ${user.name} \n Email: ${user.email} \n
     Address: ${user.address} \n Stride Length: ${user.strideLength} \n Daily Step Goal: ${user.dailyStepGoal}`
     activityBox.innerText = `Step Goal \n \n ${user.dailyStepGoal} \n \n ${userRepository.getUserAverageStepGoal().toFixed(0)} \n \n Average Step Goal`
-    // hydrationBox.innerText = `Hydration \n ${hydrationInfo}`
+    hydrationBox.innerText = `Hydration \n \n ${user.name} \n Today \n ${hydrationInfo.getFluidOuncesByDate(singleUser.id)} \n \n This week \n ${hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id)}`
+
   }
 
-function getRandomId(userList) {
-    return Math.floor(Math.random() * userList.length);
+function getRandomId() {
+    return Math.floor(Math.random() * 49) +1;
 }
 
 // **THINK TANK**

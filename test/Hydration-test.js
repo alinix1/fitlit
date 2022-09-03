@@ -72,7 +72,6 @@ describe('Hydration', () => {
         expect(hydration.getFluidOuncesConsumedPerWeek(1, "2019/06/21", 50)).to.deep.equal(OuncesOneWeek1);
 
         const OuncesOneWeek2 = {
-
               "2019/06/15": 75,
               "2019/06/16": 91,
               "2019/06/17": 96,
