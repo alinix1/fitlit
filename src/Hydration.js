@@ -17,24 +17,27 @@ class Hydration {
     return Math.round(aveHydration)
   }
 
-  getFluidOuncesByDate(id, date) {
+  getFluidOuncesByDate(id) {
     const hydrationById = this.getUserById(id)
-    const hydrationByDate = hydrationById.filter(data => data.date === date)
-    .reduce((sum, data) => {
-      sum += data.numOunces;
-      return sum;
-    }, 0)
-    return Math.round(hydrationByDate)
+    const mapped = hydrationById.map(obj => obj.date).pop()
+    const hydrationByDate = hydrationById.find(obj => obj.date === mapped)
+    // const hydrationByDate = hydrationById.filter(data => data.date === date)
+    // .reduce((sum, data) => {
+    //   sum += data.numOunces;
+    //   return sum;
+    // }, 0)
+    return hydrationByDate.numOunces;
   }
 
-  getFluidOuncesConsumedPerWeek(id, date, ounces) {
-    const hydrationById = this.getUserById(id)
+  getFluidOuncesConsumedPerWeek(id) {
+
+    const hydrationById = this.getUserById(id).splice(0, 7)
     const perWeek = hydrationById.reduce((acc, userInfo) => {
        acc[userInfo.date] = userInfo.numOunces;
        return acc
      }, {})
+     console.log(perWeek)
      return perWeek
   }
 }
-
 export default Hydration;
