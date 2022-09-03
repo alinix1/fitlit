@@ -28,11 +28,9 @@ describe('Sleep', () => {
         expect(sleep.sleepData[0].sleepQuality).to.equal(2.2);
     });
     it('should calculate the average number of hours slept per day via an id', () => {
-        sleep.calculateAverageSleep();
         expect(sleep.calculateAverageSleep(1, 'hoursSlept')).to.equal(9);
     });
     it('should calculate the average sleep quality per day over time', () => {
-        sleep.calculateAverageSleep();
         expect(sleep.calculateAverageSleep(1, 'sleepQuality')).to.equal(3);
     });
     it('should calculate how many hours a user slept for a specific day', () => {
@@ -43,7 +41,7 @@ describe('Sleep', () => {
         sleep.getAverageSleepByDate();
         expect(sleep.getAverageSleepByDate(1, "2019/06/15", 'sleepQuality')).to.equal('2.2')
     });
-    it('should calculate how many hours slept each day over the course of a given week', () => {
+    it.only('should calculate how many hours slept each day over the course of a given week', () => {
         const sleepHoursPerWeek = {
             "2019/06/15": 6.1,
             "2019/06/16": 4.1,
@@ -53,9 +51,10 @@ describe('Sleep', () => {
             "2019/06/20": 9.3,
             "2019/06/21": 7.8
         }
-        expect(sleep.getHourSleptAWeek(1, "2019/06/21", 7.8)).to.deep.equal(sleepHoursPerWeek)
+        expect(sleep.getHourSleptAWeek(1, "hoursSlept", "2019/06/21")).to.deep.equal(sleepHoursPerWeek)
     });
-    it('should calculate the sleep quality each day over the course of a given week', () => {
+
+    it.only('should calculate the sleep quality each day over the course of a given week', () => {
         const sleepQualityPerWeek = {
             "2019/06/15": 2.2,
             "2019/06/16": 3.8,
@@ -65,8 +64,7 @@ describe('Sleep', () => {
             "2019/06/20": 1.2,
             "2019/06/21": 4.2
         }
-        sleep.getSleepQualityAWeek();
-        expect(sleep.getSleepQualityAWeek(1,"2019/06/21", 4.2)).to.deep.equal(sleepQualityPerWeek);
+        expect(sleep.getHourSleptAWeek(1,"sleepQuality", "2019/06/21")).to.deep.equal(sleepQualityPerWeek);
     });
     it('should calculate average sleep quality for all users', () => {
         sleep.getAllUsersAverageSleepQuality();
