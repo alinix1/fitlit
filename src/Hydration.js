@@ -36,7 +36,7 @@ class Hydration {
        acc[userInfo.date] = userInfo.numOunces;
        return acc
      }, {})
-     console.log(perWeek)
+     console.log('39', perWeek)
      return perWeek
   }
 }
