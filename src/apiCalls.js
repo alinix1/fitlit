@@ -1,8 +1,8 @@
 let fetchData = (data) => {
     return fetch(data)
             .then(response => response.json())
-            .catch(err => console.log('ERROR!!!!'))
-};
+            .catch(err => console.log(err))
+}
 
 const apiCalls = {
     getUserData: () => {
