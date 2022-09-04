@@ -40,7 +40,7 @@
 
 
 ## Deployed Page
-Visit our published Hang In There Site! [here]()
+Visit our published Hang In There Site! [here](http://localhost:8080/)
 
 ## Possible Future Extensions
   - A friends widget that let's you select your friends and see their stats.
