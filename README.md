@@ -40,7 +40,7 @@
 
 
 ## Deployed Page
-Visit our published Hang In There Site! [here](https://alinix1.github.io/fitlit/)
+Visit our published site! [here](https://alinix1.github.io/fitlit/)
 
 ## Possible Future Extensions
   - A friends widget that let's you select your friends and see their stats.
