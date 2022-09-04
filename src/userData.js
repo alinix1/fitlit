@@ -60,8 +60,6 @@ const hydrationData = [
     "numOunces": 47
   },
   //2
-
-  //3
   {
     "userID": 1,
     "date": "2019/06/16",
@@ -77,7 +75,7 @@ const hydrationData = [
     "date": "2019/06/16",
     "numOunces": 99
   },
-  //4
+  //3
   {
     "userID": 1,
     "date": "2019/06/17",
@@ -93,7 +91,7 @@ const hydrationData = [
     "date": "2019/06/17",
     "numOunces": 28
   },
-  //5
+  //4
   {
     "userID": 1,
     "date": "2019/06/18",
@@ -109,7 +107,7 @@ const hydrationData = [
   "date": "2019/06/18",
   "numOunces": 40
   },
-  //6
+  //5
   {
     "userID": 1,
     "date": "2019/06/19",
@@ -125,7 +123,7 @@ const hydrationData = [
     "date": "2019/06/19",
     "numOunces": 85
   },
-  //7
+  //6
   {
     "userID": 1,
     "date": "2019/06/20",
@@ -141,6 +139,7 @@ const hydrationData = [
     "date": "2019/06/20",
     "numOunces": 51
   },
+  //7
   {
     "userID": 1,
     "date": "2019/06/21",
@@ -297,4 +296,4 @@ const sleepData = [
 ]
 
 
-module.exports = { userData, hydrationData, sleepData };
+module.exports = { userData, hydrationData, sleepData }
