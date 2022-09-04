@@ -12,15 +12,14 @@ import { sleepData } from './userData'
 
 
 // --------------------------------------------------- QUERY SELECTORS
-let welcomeUserBox = document.getElementById('welcomeUserBox')
-let userDataBox = document.getElementById('userDataBox')
-let activityBox = document.getElementById('activityBox')
-let sleepBox = document.getElementById('sleepBox')
-let hydrationBox = document.getElementById('hydrationBox')
-let communityBox = document.getElementById('communityBox')
-let widgetBox = document.getElementById('widgetBox')
-let dailyBox = document.getElementById('dailyBox')
-let refreshButton = document.getElementById('refresh-button');
+const welcomeUserBox = document.getElementById('welcomeUserBox')
+const userDataBox = document.getElementById('userDataBox')
+const dailyBox = document.getElementById('dailyBox')
+const activityChart = document.getElementById('activityChart')
+const hydrationChart = document.getElementById('hydrationChart')
+const sleepChart = document.getElementById('sleepChart')
+const refreshButton = document.getElementById('refreshButton')
+
 
 
 // --------------------------------------------------- GLOBAL VARIABLES
@@ -34,8 +33,9 @@ let sleepInfo = []
 
 
 // --------------------------------------------------- EVENT LISTENERS
-refreshButton.addEventListener('click', refreshingButton);
+
 window.addEventListener('load', instantiateData)
+refreshButton.addEventListener('click', refreshingButton);
 
 // --------------------------------------------------- FETCH PROMISES
 Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSleepData()])
@@ -67,16 +67,14 @@ function displayUserData(id, date) {
 
 function displayAllData() {
   const weeklyFluidConsumption = hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id)
-  const weeklyKeys = Object.keys(weeklyFluidConsumption)
-  const weeklyValues = Object.values(weeklyFluidConsumption)
+  const hydroKeys = Object.keys(weeklyFluidConsumption)
+  const hydroValues = Object.values(weeklyFluidConsumption)
   const sleepyWeek = sleepInfo.getHourSleptAWeek(singleUser.id, "hoursSlept")
   const sleepyKeys = Object.keys(sleepyWeek)
   const sleepyValues = Object.values(sleepyWeek)
   const qualityWeek = sleepInfo.getHourSleptAWeek(singleUser.id, "sleepQuality")
   const qualityKeys = Object.keys(qualityWeek)
   const qualityValues = Object.values(qualityWeek)
-  const totalSleep = sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")
-  const totalQuality = sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")
 
   welcomeUserBox.innerText = `Welcome  \n ${user.userFirstName()}!`
   userDataBox.innerText = `CURRENT USER \n ------- \n Name: ${user.name} \n Email: ${user.email} \n
@@ -85,8 +83,7 @@ function displayAllData() {
    Hours Slept - ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")} \n \n
    Sleep Quality - ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}`
 
-  const ctx1 = document.getElementById('activityChart')
-  const myChar1 = new Chart(ctx1, {
+  const displayActivityChart = new Chart(activityChart, {
       type: 'pie',
       data: {
           labels: ['Daily User Step Goal', 'Users Avg Step Goal'],
@@ -112,14 +109,13 @@ function displayAllData() {
         }
     })
 
-  const ctx2 = document.getElementById('hydrationChart')
-  const myChart2 = new Chart(ctx2, {
+  const displayHydrationChart = new Chart(hydrationChart, {
       type: 'bar',
       data: {
-          labels: [weeklyKeys[0], weeklyKeys[1], weeklyKeys[2], weeklyKeys[3], weeklyKeys[4], weeklyKeys[5], weeklyKeys[6]],
+          labels: [hydroKeys[0], hydroKeys[1], hydroKeys[2], hydroKeys[3], hydroKeys[4], hydroKeys[5], hydroKeys[6]],
           datasets: [{
               label: 'Hydration (per ounce)',
-              data: [weeklyValues[0], weeklyValues[1], weeklyValues[2], weeklyValues[3], weeklyValues[4], weeklyValues[5], weeklyValues[6]],
+              data: [hydroValues[0], hydroValues[1], hydroValues[2], hydroValues[3], hydroValues[4], hydroValues[5], hydroValues[6]],
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
               ],
@@ -139,8 +135,7 @@ function displayAllData() {
       }
   })
 
-  const ctx3 = document.getElementById('sleepChart')
-  const myChart3 = new Chart(ctx3, {
+  const displaySleepChart = new Chart(sleepChart, {
       type: 'line',
       data: {
           labels: [sleepyKeys[0],sleepyKeys[1],sleepyKeys[2],sleepyKeys[3],sleepyKeys[4],sleepyKeys[5],sleepyKeys[6]],
@@ -182,6 +177,7 @@ function displayAllData() {
 function getRandomId() {
     return Math.floor(Math.random() * 49) +1
 }
+
 function refreshingButton() {
     location.reload();
 }
