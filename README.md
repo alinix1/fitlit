@@ -45,7 +45,8 @@ Visit our published Hang In There Site! [here]()
 1. Fork this repo  
 2. Clone the repo to your local machine
 3. In your terminal, run - npm install
-4. View the project in the browser by running open index.html in your terminal.
+4. In your terminal, run - npm install Chart.js
+5. View the project in the browser by running open index.html in your terminal.
 
 
 
