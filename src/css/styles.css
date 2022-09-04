@@ -20,12 +20,6 @@ div {
     border-radius: 25px;
 }
 
-button {
-  opacity: 0.9;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 10px 10px;
-}
-
 /* -----------------------------------------------LEFT-SIDE */
 .left-bar {
     display: flex;
@@ -34,7 +28,7 @@ button {
     background-color: #252020;
     color: #ffffff;
     height: 625px;
-    width: 200px;
+    width: 210px;
     border-radius: 25px;
 }
 
@@ -45,14 +39,30 @@ button {
 }
 
 .logo-container {
-    height: 300px;
-    width: 150px;
+    height: 310px;
+    width: 160px;
+    margin-top: 50px;
     background-image: url('../images/fitlit.png');
     background-color: #252020;
     background-size: contain;
     background-repeat: no-repeat;
 }
 
+.refresh-button {
+    width: 70px;
+    height: 30px;
+    transition-duration: 0.9s;
+}
+
+.refresh-button:hover {
+    background-color: #cd5f0c;
+    color: white;
+}
+
+.refresh-button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
 /* ----------------------------------------------- WIDGET-AREA */
 .widget-box {
     width: 100%;
@@ -71,7 +81,8 @@ button {
     width: 30%;
     height: 200px;
     color: #252020;
-    font-size: 30px;
+    font-size: 40px;
+    font-style: italic;
 }
 
 .user-data-box {
