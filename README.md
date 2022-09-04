@@ -1,4 +1,4 @@
-# FitLit
+# FitLit 🏃 🏀 🏃‍♀️ 
 
 
 ## Table of Contents
@@ -17,37 +17,42 @@
 ## Introduction
   - The purpose of this project was to create an app that allows you to track user fitness! With this app you can track hydration, sleep, steps, and more. You can see all your friends fitness data as well!
 
+
+  ![2022-09-04 13 50 18](https://user-images.githubusercontent.com/28677929/188333718-c4931f4a-082e-44ed-bab9-89a9fc474605.gif)
+
+
 ## Technologies
   - Javascript
   - HTML
   - CSS
+  - Mocha/Chai 
+  - Webpack 
   - Chart.js
 
 
 ## Illustrations
-  ![Fitlit]()
+[Fitlit](https://www.figma.com/file/nx3zvbtKURlMM7DMCruYKJ/FitLit-Wireframe)
 
 ## Features
 - Charts that show sleep, hydration, and step info.
 - Card that welcomes user.
 - Card that displays user info.
 
-## Deployed Page
 
+## Deployed Page
 Visit our published Hang In There Site! [here]()
 
 ## Possible Future Extensions
   - A friends widget that let's you select your friends and see their stats.
   - A functional calendar and icons.
 
-## Set Up
 
+## Set Up
 1. Fork this repo  
 2. Clone the repo to your local machine
-3. In your terminal, run - npm install
-4. In your terminal, run - npm install Chart.js
-5. View the project in the browser by running open index.html in your terminal.
-
+3. In your terminal, run - `npm install`
+4. In your terminal, run - `npm install Chart.js`
+5. View the project by starting the server by running `npm start` and view at  http://localhost:8080/
 
 
 ## Sources
