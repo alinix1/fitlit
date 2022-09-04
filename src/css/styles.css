@@ -1,23 +1,3 @@
-/* -----------------------------------------------UTILITIES */
-
-/* .left-side {
-background-color: #252020;
-color: #ffffff;
-};
-
-.widgets {
-background-color: #ca3838;
-color: #252020;
-font-style: italic;
-}; */
-
-/* @font-face {
-    font-family: 'home_minimalistminimalist';
-    src: url('../src/font/home-minimalist-webfont.woff2') format('woff2'),
-         url('../src/font/home-minimalist-webfont.woff') format('woff');
-    font-weight: normal;
-} */
-
 /* -----------------------------------------------TAGS */
 body {
     background-color: #3e3e3e;
@@ -27,7 +7,6 @@ main {
     display: flex;
     align-items: stretch;
     gap: 5px;
-    /* font-family: 'home_minimalistminimalist', Arial, sans-serif; */
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: normal;
     font-style: normal;
@@ -39,7 +18,6 @@ div {
     background-color: #ffffff;
     box-shadow: 0px 0px 10px 10px;
     border-radius: 25px;
-    height: 250px;
 }
 
 /* -----------------------------------------------LEFT-SIDE */
@@ -49,8 +27,9 @@ div {
     align-items: center;
     background-color: #252020;
     color: #ffffff;
-    height: 700px;
+    height: 625px;
     width: 200px;
+    border-radius: 25px;
 }
 
 .fitLit-title {
@@ -59,6 +38,14 @@ div {
     font-size: 40px;
 }
 
+.logo-container {
+    height: 300px;
+    width: 150px;
+    background-image: url('../images/fitlit.png');
+    background-color: #252020; 
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 
 /* ----------------------------------------------- WIDGET-AREA */
 .widget-box {
@@ -76,13 +63,20 @@ div {
     align-items: center;
     justify-content: center;
     width: 30%;
+    height: 200px;
     color: #252020;
     font-size: 30px;
-
+    
 }
 
 .userData-box {
-    width: 60%;
+    width: 40%;
+    color: #252020;
+}
+
+.daily-box {
+    width: 20%;
+    height: 200px;
     color: #252020;
 }
 
@@ -96,7 +90,7 @@ div {
 
 .sleep-box {
     display: flex;
-    /* align-items: center; */
+    flex-direction: column;
     justify-content: center;
     height: 400px;
     width: 33%;
@@ -105,15 +99,10 @@ div {
 
 .hydration-box {
     display: flex;
-    /* align-items: center; */
+    flex-direction: column;
     justify-content: center;
     height: 400px;
     width: 33%;
     color: #252020;
 }
 
-.community-box {
-    width: 90%;
-    height: 150px;
-    color: #252020;
-}

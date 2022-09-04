@@ -9,27 +9,24 @@
     <main>
       <section class="left-bar" id="left-bar">
         <h1 class="fitLit-title">FitLit</h1>
-        <img class="logo-img" src="../src/images/fitlit.png" alt="turing logo" height="100px" width="100px">
+        <section class="logo-container" id="logo-container">
+        </section>
       </section>
-
       <section class="widget-box" id="widget-box">
         <div class="welcomeUser-box" id="welcomeUser-box">Welcome</div>
         <div class="userData-box" id="userData-box">userData-box</div>
+        <div class="daily-box" id="daily-box"></div>
         <div class="activity-box" id="activity-box">
           <canvas class="activity-chart" id="activity-chart"></canvas>
         </div>
-        <div class="sleep-box" id="sleep-box">
-          <canvas class="sleep-chart" id="sleep-chart"></canvas>
-        </div>
         <div class="hydration-box" id="hydration-box">
-          <canvas class="hydration-chart" id="hydration-chart"></canvas>
+          <canvas class="hydration-chart" id="hydration-chart" height="250px"></canvas>
         </div>
-        <!-- <div class="community-box" id="community-box">Community
+        <div class="sleep-box" id="sleep-box">
+          <canvas class="sleep-chart" id="sleep-chart" height="250px"></canvas>
         </div>
       </section>
     </main>
-
-<!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
     <script src="bundle.js"></script>
   </body>
 </html>
