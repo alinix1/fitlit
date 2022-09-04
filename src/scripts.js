@@ -50,7 +50,6 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSl
 
 // --------------------------------------------------- FUNCTIONS
 function instantiateData(data) {
-  console.log(data)
   users = data.userData.map(user => new User(user))
   userRepository = new UserRepository(users)
   singleUser = new User(users[getRandomId()])
