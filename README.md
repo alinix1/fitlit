@@ -56,9 +56,9 @@ Visit our published Hang In There Site! [here]()
   
 
 ## Contributors
-  - [Ian McIntosh]([https://github.com/grainymac/grainymac])
-  - [Connor Corcoran]([https://github.com/Connorcorc])
-  - [Ali Nix]([https://github.com/alinix1])
+  - [Ian McIntosh](https://github.com/grainymac/grainymac)
+  - [Connor Corcoran](https://github.com/Connorcorc)
+  - [Ali Nix](https://github.com/alinix1)
 
 
 ## Project Specs
