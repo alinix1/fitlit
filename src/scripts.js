@@ -20,6 +20,7 @@ let hydrationBox = document.getElementById('hydrationBox')
 let communityBox = document.getElementById('communityBox')
 let widgetBox = document.getElementById('widgetBox')
 let dailyBox = document.getElementById('dailyBox')
+let refreshButton = document.getElementById('refresh-button');
 
 
 // --------------------------------------------------- GLOBAL VARIABLES
@@ -33,7 +34,7 @@ let sleepInfo = []
 
 
 // --------------------------------------------------- EVENT LISTENERS
-
+refreshButton.addEventListener('click', refreshingButton);
 window.addEventListener('load', instantiateData)
 
 // --------------------------------------------------- FETCH PROMISES
@@ -180,4 +181,7 @@ function displayAllData() {
 
 function getRandomId() {
     return Math.floor(Math.random() * 49) +1
+}
+function refreshingButton() {
+    location.reload();
 }
