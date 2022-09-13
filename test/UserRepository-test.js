@@ -25,16 +25,23 @@ describe('User Repository', () => {
     expect(userRepository.users).to.deep.equal([user1, user2])
     expect(userRepository.users.length).to.deep.equal(2)
 
+    expect(userRepository.users.length).to.not.deep.equal(3)
+
   })
 
   it('should return user data via id', () => {
     expect(userRepository.getUserData(1)).to.equal(user1)
     expect(userRepository.getUserData(2)).to.equal(user2)
 
+    expect(userRepository.getUserData(1)).to.not.equal(user2)
+    expect(userRepository.getUserData(2)).to.not.equal(user1)
+
   })
 
   it('should return average step goals for all users', () => {
     expect(userRepository.getUserAverageStepGoal()).to.equal(7500)
+
+    expect(userRepository.getUserAverageStepGoal()).to.not.equal(8000)
   })
 
 })

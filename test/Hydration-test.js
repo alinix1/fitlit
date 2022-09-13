@@ -22,11 +22,19 @@ describe('Hydration', () => {
         expect(hydration.hydrationData[0].userID).to.equal(1)
         expect(hydration.hydrationData[1].userID).to.equal(2)
         expect(hydration.hydrationData[2].userID).to.equal(3)
+
+        expect(hydration.hydrationData[0].userID).to.not.equal(2)
+        expect(hydration.hydrationData[1].userID).to.not.equal(3)
+        
     })
 
     it('should have a date', () => {
         expect(hydration.hydrationData[0].date).to.be.a('string')
         expect(hydration.hydrationData[0].date).to.equal("2019/06/15")
+
+        expect(hydration.hydrationData[0].date).to.not.be.a('number')
+        expect(hydration.hydrationData[0].date).to.not.equal("2019/06/17")
+
     })
 
     it('should have number of ounces', () => {
@@ -38,19 +46,28 @@ describe('Hydration', () => {
 
         expect(hydration.hydrationData[2].numOunces).to.be.a('number')
         expect(hydration.hydrationData[2].numOunces).to.equal(47)
+
+        expect(hydration.hydrationData[0].numOunces).to.not.be.a('string')
+        expect(hydration.hydrationData[0].numOunces).to.not.equal(50)
     })
 
     it('should return average fluid ounces of a user via an id', () => {
         expect(hydration.calculateAverageOunces(1)).to.equal(65)
-
         expect(hydration.calculateAverageOunces(2)).to.equal(72)
-
         expect(hydration.calculateAverageOunces(3)).to.equal(56)
+
+        expect(hydration.calculateAverageOunces(1)).to.not.equal(100)
+        expect(hydration.calculateAverageOunces(1)).to.not.equal('foo')
+
     })
 
     it('should return total fluid ounces of a user given a specific date', () => {
         expect(hydration.getFluidOuncesByDate(1, "2019/06/15")).to.equal(50)
         expect(hydration.getFluidOuncesByDate(2, "2019/06/15")).to.equal(27)
+
+        expect(hydration.getFluidOuncesByDate(1, "2019/06/15")).to.not.equal(25)
+        expect(hydration.getFluidOuncesByDate(2, "2019/06/15")).to.not.equal(70)
+        
     })
 
     it('should return all fluid ounces of a user for the most recent week', () => {
