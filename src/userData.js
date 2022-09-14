@@ -295,5 +295,50 @@ const sleepData = [
   }
 ]
 
+const activityData = [
+  {
+    "userID":1,
+    "date": "2019/06/15",
+    "numSteps": 3577,
+    "minutesActive": 140,
+    "flightsOfStairs": 16
+  },
+  {
+    "userID":2,
+    "date": "2019/06/15",
+    "numSteps": 4294,
+    "minutesActive": 138,
+    "flightsOfStairs": 10
+  },
+  {
+    "userID":3,
+    "date": "2019/06/15",
+    "numSteps": 7402,
+    "minutesActive": 114,
+    "flightsOfStairs": 33
+  },
+  {
+    "userID":1,
+    "date": "2019/06/16",
+    "numSteps": 8000,
+    "minutesActive": 120,
+    "flightsOfStairs": 45
+  },
+  {
+    "userID":2,
+    "date": "2019/06/16",
+    "numSteps": 7405,
+    "minutesActive": 120,
+    "flightsOfStairs": 70
+  },
+  {
+    "userID":3,
+    "date": "2019/06/16",
+    "numSteps": 10000,
+    "minutesActive": 120,
+    "flightsOfStairs": 50
+  }
+]
 
-module.exports = { userData, hydrationData, sleepData }
+
+module.exports = { userData, hydrationData, sleepData, activityData }
