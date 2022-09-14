@@ -23,6 +23,8 @@ describe('User', () => {
     it('should have a user id', () => {
         expect(user1.id).to.be.finite
         expect(user1.id).to.equal(1)
+
+
     })
 
     it ('should be the correct number', () => {
@@ -32,26 +34,37 @@ describe('User', () => {
     it('should have a user name', () => {
         expect(user1.name).to.be.a('string')
         expect(user1.name).to.equal('Luisa Hane')
+
+        expect(user1.name).to.not.equal('Bob Jones')
     })
 
     it('should have a user address', () => {
         expect(user1.address).to.be.a('string')
         expect(user1.address).to.equal("15195 Nakia Tunnel, Erdmanport VA 19901-1697")
+
+        expect(user1.address).to.not.equal("15195 Nakia Tunnel, Erdmanport VA")
     })
 
     it('should have a user email', () => {
         expect(user1.email).to.be.a('string')
         expect(user1.email).to.equal("Diana.Hayes1@hotmail.com")
+        
+        expect(user1.email).to.not.equal("Diana.Hayes1@gmail.com")
     })
 
     it('should have a user stride length', () => {
         expect(user1.strideLength).to.be.a('number')
         expect(user1.strideLength).to.equal(4.3)
+
+        expect(user1.strideLength).to.not.equal(7.5)
     })
 
     it('should have a user daily step goal', () => {
         expect(user1.dailyStepGoal).to.be.a('number')
         expect(user1.dailyStepGoal).to.equal(10000)
+
+        expect(user1.dailyStepGoal).to.not.equal(5000)
+        expect(user1.dailyStepGoal).to.not.be.a('string')
     })
 
     it('should have access to a user friends', () => {
@@ -61,11 +74,14 @@ describe('User', () => {
             8
           ])
           expect(user1.friends).to.have.lengthOf(3)
+          expect(user1.friends).to.not.deep.equal([])
+
     })
 
     it('should display only the first name', () => {
         expect(user1.userFirstName()).to.be.a('string')
         expect(user1.userFirstName()).equal('Luisa')
+        
         expect(user1.userFirstName()).to.not.equal('Bob')
     })
 
