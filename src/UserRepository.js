@@ -18,6 +18,10 @@ class UserRepository {
         return totals / this.users.length
     }
 
+    getDailyStepGoal(id) {
+        return this.users.filter(user => user.dailyStepGoal)
+    }
+
 }
 
 export default UserRepository

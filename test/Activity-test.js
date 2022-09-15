@@ -1,12 +1,15 @@
 import { expect } from 'chai'
 import Activity from '../src/Activity.js'
+import User from '../src/User.js';
 import { userData, hydrationData, sleepData, activityData } from '../src/userData'
+import UserRepository from '../src/UserRepository.js';
 
 describe('Activity', () => {
-  let activity;
+    let activity, user;
 
     beforeEach(() => {
       activity = new Activity(activityData)
+      user = new UserRepository(userData)
     })
 
     it('should be a function', () => {
@@ -59,6 +62,25 @@ describe('Activity', () => {
 
         expect(activity.activityData[2].flightsOfStairs).to.be.a('number')
         expect(activity.activityData[2].flightsOfStairs).to.equal(33)
+    })
+
+    it('should find their all-time stair climbing record', () => {
+        expect(activity.getHighestClimbingRecord(1)).to.be.a('number')
+        expect(activity.getHighestClimbingRecord(1)).to.equal(45)
+
+        expect(activity.getHighestClimbingRecord(1)).to.not.be.a('string')
+        expect(activity.getHighestClimbingRecord(1)).to.not.equal(0)
+
+    })
+
+    it.skip('should find all the days where they exceeded their step goal', () => {
+        activity.getStepGoal(1, user.getDailyStepGoal(1));
+    })
+
+    it.only('should show how many minutes were they active for a given day by their userID', () => {
+        activity.getMinActiveByDate(1);
+        expect(activity.getMinActiveByDate(1)).to.be.a('number')
+        expect(activity.getMinActiveByDate(1)).to.equal(140)
     })
 
 })

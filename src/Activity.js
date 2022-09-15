@@ -1,7 +1,8 @@
 import { DatasetController } from "chart.js";
+import { userRepository} from "./UserRepository.js"
 
 class Activity {
-    constructor(activityData) {
+    constructor(activityData, userRepository) {
         this.activityData = activityData;    
     }
 
@@ -18,16 +19,16 @@ class Activity {
             }
             return acc
         }, 0)
+        console.log('wtf', reduced)
         return reduced
       }
 
       getMinActiveByDate(id) {
          const activityById = this.getUserById(id)
-         const getDate = activityById.map(userData => userData.date).pop()
-         const activityByDate = activityById.find(userData => userData.date === getDate)
-         return activityByDate.minutesActive
-      
-        }
+         const getDate = activityById.map(activity => activity.date).shift()
+         const activityByDate = activityById.find(activity => activity.date === getDate)
+         return activityByDate.minutesActive 
+      }
 
         getAverageActivityByDate(id, date) {
           const activityById = this.getUserById(id)
@@ -68,7 +69,22 @@ class Activity {
           // }, {}) // need the average // return a num instead of an object?
           return activeWeek
         }
-      }
+
+        getStepGoal(id, userRepository) {
+          const activityById = this.getUserById(id)
+          const stepGoal = activityById.reduce((acc,curr) => {
+            if (curr.numSteps >= userRepository) {
+               acc += curr.date
+            }
+            return acc
+          }, [])
+          return stepGoal
+        }
+
+
+
+
+}
 
 export default Activity
 
