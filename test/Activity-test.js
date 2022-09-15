@@ -7,7 +7,6 @@ describe('Activity', () => {
 
     beforeEach(() => {
       activity = new Activity(activityData)
-
     })
 
     it('should be a function', () => {
@@ -15,7 +14,6 @@ describe('Activity', () => {
     })
 
     it('should be an instance of Activity', () => {
-        // console.log(activity.getHighestClimbingRecord(3))
       expect(activity).to.be.an.instanceof(Activity)
     })
 

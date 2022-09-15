@@ -4,7 +4,11 @@ class UserRepository {
 
     }
     getUserData(id) {
-        return this.users.find(user => user.id === id)
+        if (id === undefined) {
+            return "Invalid user id"
+        } else {
+            return this.users.find(user => user.id === id)
+        }
     }
     getUserAverageStepGoal() {
         let aveDailySteps = this.users.map(user => user.dailyStepGoal)
