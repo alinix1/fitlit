@@ -35,6 +35,8 @@ describe('User Repository', () => {
 
     expect(userRepository.getUserData(1)).to.not.equal(user2)
     expect(userRepository.getUserData(2)).to.not.equal(user1)
+    expect(userRepository.getUserData('')).to.not.equal(user1)
+
 
   })
 
