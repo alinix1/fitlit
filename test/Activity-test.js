@@ -13,7 +13,7 @@ describe('Activity', () => {
     })
 
     it('should be a function', () => {
-        expect(Activity).to.be.a('function')
+      expect(Activity).to.be.a('function')
     })
 
     it('should be an instance of Activity', () => {
@@ -21,25 +21,25 @@ describe('Activity', () => {
     })
 
     it('should have access to a user via an id', () => {
-        expect(activity.activityData[0].userID).to.equal(1)
-        expect(activity.activityData[1].userID).to.equal(2)
-        expect(activity.activityData[2].userID).to.equal(3)
+      expect(activity.activityData[0].userID).to.equal(1)
+      expect(activity.activityData[1].userID).to.equal(2)
+      expect(activity.activityData[2].userID).to.equal(3)
     })
 
     it('should have a date', () => {
-        expect(activity.activityData[0].date).to.be.a('string')
-        expect(activity.activityData[0].date).to.equal("2019/06/15")
+      expect(activity.activityData[0].date).to.be.a('string')
+      expect(activity.activityData[0].date).to.equal("2019/06/15")
     })
 
     it('should have number of steps', () => {
-        expect(activity.activityData[0].numSteps).to.be.a('number')
-        expect(activity.activityData[0].numSteps).to.equal(3577)
+      expect(activity.activityData[0].numSteps).to.be.a('number')
+      expect(activity.activityData[0].numSteps).to.equal(3577)
 
-        expect(activity.activityData[1].numSteps).to.be.a('number')
-        expect(activity.activityData[1].numSteps).to.equal(4294)
+      expect(activity.activityData[1].numSteps).to.be.a('number')
+      expect(activity.activityData[1].numSteps).to.equal(4294)
 
-        expect(activity.activityData[2].numSteps).to.be.a('number')
-        expect(activity.activityData[2].numSteps).to.equal(7402)
+      expect(activity.activityData[2].numSteps).to.be.a('number')
+      expect(activity.activityData[2].numSteps).to.equal(7402)
     })
 
     it('should have minutes active', () => {
@@ -73,7 +73,7 @@ describe('Activity', () => {
     it('should show how many minutes were they active for a given day by their userID', () => {
       expect(activity.getMinActiveByDate(1)).to.be.a('number')
       expect(activity.getMinActiveByDate(1)).to.equal(140)
-   })
+    })
 
    it('should show the highest number of flights of stairs a user climbed', () => {
      expect(activity.getHighestClimbingRecord(1)).to.be.a('number')
@@ -106,7 +106,6 @@ describe('Activity', () => {
 
      expect(activity.getAverageActivityByDate("2019/06/15")).to.equal(131)
      expect(activity.getAverageActivityByDate("2019/06/16")).to.equal(120)
-
    })
 
    it('should return average steps by date', () => {
