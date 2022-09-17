@@ -6,13 +6,16 @@ let fetchData = (data) => {
 
 const apiCalls = {
     getUserData: () => {
-        return fetchData('https://fitlit-api.herokuapp.com/api/v1/users')
+        return fetchData('http://localhost:3001/api/v1/users')
     },
     getSleepData: () => {
-        return fetchData('https://fitlit-api.herokuapp.com/api/v1/sleep')
+        return fetchData('http://localhost:3001/api/v1/sleep')
     },
     getHydrationData: () => {
-        return fetchData('https://fitlit-api.herokuapp.com/api/v1/hydration/')
+        return fetchData('http://localhost:3001/api/v1/hydration')
+    },
+    getActivityData: () => {
+      return fetchData('http://localhost:3001/api/v1/activity')
     }
 }
 
