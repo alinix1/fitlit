@@ -1,24 +1,24 @@
 import './css/styles.css'
-import './images/fitlit.png'
 import UserRepository from './UserRepository'
 import User from './User'
 import Sleep from './Sleep'
 import Hydration from './Hydration'
 import Chart from 'chart.js/auto'
+import Activity from './Activity'
 import apiCalls from './apiCalls'
-import { userData } from './userData'
-import { hydrationData } from './userData'
-import { sleepData } from './userData'
+import { userData, hydrationData, sleepData, activityData } from './userData'
 
 
 // --------------------------------------------------- QUERY SELECTORS
 const welcomeUserBox = document.getElementById('welcomeUserBox')
 const userDataBox = document.getElementById('userDataBox')
 const dailyBox = document.getElementById('dailyBox')
-const activityChart = document.getElementById('activityChart')
+const stepsChart = document.getElementById('stepsChart')
 const hydrationChart = document.getElementById('hydrationChart')
 const sleepChart = document.getElementById('sleepChart')
 const refreshButton = document.getElementById('refreshButton')
+const welcomeSideBar = document.getElementById('welcomeText')
+const activityBox = document.getElementById('activityBox')
 
 
 
@@ -30,6 +30,7 @@ let singleUser
 let users = []
 let hydrationInfo = []
 let sleepInfo = []
+let activityInfo = [];
 
 
 // --------------------------------------------------- EVENT LISTENERS
@@ -38,7 +39,7 @@ window.addEventListener('load', instantiateData)
 refreshButton.addEventListener('click', refreshingButton);
 
 // --------------------------------------------------- FETCH PROMISES
-Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSleepData()])
+Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSleepData(), apiCalls.getActivityData()])
   .then((data) => {
     const allUserData = data.reduce((userList, userItem) => {
       return userList = {...userList, ...userItem}
@@ -46,25 +47,27 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSl
     instantiateData(allUserData)
     displayUserData()
     displayAllData()
-  })
+    })
 
 // --------------------------------------------------- FUNCTIONS
+
 function instantiateData(data) {
   users = data.userData.map(user => new User(user))
   userRepository = new UserRepository(users)
   singleUser = new User(users[getRandomId()])
   hydrationInfo = new Hydration(data.hydrationData)
   sleepInfo = new Sleep(data.sleepData)
+  activityInfo = new Activity(data.activityData, singleUser)
 }
 
 function displayUserData(id, date) {
   randomUser = getRandomId(singleUser.id)
   user = userRepository.users[randomUser]
-  id = user.id
-  date = user.date
+  // id = user.id
+  // date = user.date
 }
 
-function displayAllData() {
+function chartData() {
   const weeklyFluidConsumption = hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id)
   const hydroKeys = Object.keys(weeklyFluidConsumption)
   const hydroValues = Object.values(weeklyFluidConsumption)
@@ -75,15 +78,8 @@ function displayAllData() {
   const qualityKeys = Object.keys(qualityWeek)
   const qualityValues = Object.values(qualityWeek)
 
-  welcomeUserBox.innerText = `Welcome  \n ${user.userFirstName()}!`
-  userDataBox.innerText = `CURRENT USER \n ------- \n Name: ${user.name} \n Email: ${user.email} \n
-  Address: ${user.address} \n Stride Length: ${user.strideLength} \n Daily Step Goal: ${user.dailyStepGoal}`
-  dailyBox.innerText = `Daily Data: \n \n Hydration - ${hydrationInfo.getFluidOuncesByDate(singleUser.id)} ounces \n \n
-   Hours Slept - ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")} \n \n
-   Sleep Quality - ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}`
-
-  const displayActivityChart = new Chart(activityChart, {
-      type: 'pie',
+  const displayStepsChart = new Chart(stepsChart, {
+      type: 'doughnut',
       data: {
           labels: ['Daily User Step Goal', 'Users Avg Step Goal'],
           datasets: [{
@@ -104,7 +100,8 @@ function displayAllData() {
           scales: {
 
           },
-          maintainAspectRatio: false
+          responsive: true,
+          maintainAspectRatio: true
         }
     })
 
@@ -130,7 +127,9 @@ function displayAllData() {
                   beginAtZero: true
               }
           },
-          maintainAspectRatio: false
+          responsive: true,
+          // aspectRatio: 1,
+          maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
 
@@ -168,9 +167,25 @@ function displayAllData() {
                     beginAtZero: true
                 }
             },
-            maintainAspectRatio: false
+            responsive: true,
+            // aspectRatio: 1,
+            maintainAspectRatio: true
         }
       })
+}
+function displayAllData() {
+  chartData()
+  console.log(activityInfo.getMilesWalked(singleUser.id));
+  welcomeSideBar.innerHTML += `<h4 class="welcome-title">W E L C O M E</h4> <p class="welcome-name">${user.userFirstName()}</p>`
+  userDataBox.innerHTML += `<h1 class='headers'>C U R R E N T  U S E R</h1> <p class="user-data-text">Name: ${user.name} <br><br> Email: ${user.email} <br><br>
+  Address: ${user.address} <br><br> Stride Length: ${user.strideLength} <br><br> Daily Step Goal: ${user.dailyStepGoal}</p>`
+  dailyBox.innerHTML += `<h1 class='headers'>D A I L Y D A T A</h1> <p class="daily-text">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
+   HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
+   SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5 <br><br> MINUTES ACTIVE <br> ${activityInfo.getMinActiveByDate(singleUser.id)}
+   <br> <br> STEPS <br> ${activityInfo.getStepsToday(singleUser.id)}</p>`
+  activityBox.innerHTML += `<h1 class='headers'>A C T I V I T Y</h1> <br> MOST STAIRS CLIMBED <br> ${activityInfo.getHighestClimbingRecord(singleUser.id)}<br>
+  <img src=\"https://media3.giphy.com/media/xUPGcKoAYCn5fHK0Zq/giphy.gif"> <br>
+  ${activityInfo.getMilesWalked(singleUser.id)}<br>${activityInfo.reachStepGoal(singleUser.id)}`
 }
 
 function getRandomId() {
