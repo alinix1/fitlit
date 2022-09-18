@@ -10,7 +10,7 @@ class User {
         this.totalSteps = 0
 
     }
-    userFirstName() {
+    userFirstName(id) {
         const firstName = this.name.split(' ')
         return firstName[0]
       }

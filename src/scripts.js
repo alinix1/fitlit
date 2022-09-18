@@ -16,6 +16,7 @@ const dailyBox = document.getElementById('dailyBox')
 const stepsChart = document.getElementById('stepsChart')
 const hydrationChart = document.getElementById('hydrationChart')
 const sleepChart = document.getElementById('sleepChart')
+const activityChart = document.getElementById('activityChart')
 const refreshButton = document.getElementById('refreshButton')
 const welcomeSideBar = document.getElementById('welcomeText')
 const activityBox = document.getElementById('activityBox')
@@ -67,6 +68,37 @@ function displayUserData(id, date) {
   // date = user.date
 }
 
+function displayAllData() {
+  chartData()
+  // console.log(activityInfo.getMilesWalked(singleUser.id))
+  // console.log(activityInfo.getAverageActivityByDate());
+  console.log(activityInfo.getActivityForWeek(singleUser.id));
+  welcomeSideBar.innerHTML += `<h4 class="welcome-title">W E L C O M E</h4> <p class="welcome-name">${singleUser.userFirstName(singleUser.id)}</p>`
+
+  userDataBox.innerHTML += `<h1 class='headers'>C U R R E N T  U S E R</h1> <p class="user-data-text">Name: ${singleUser.name} <br><br> Email: ${singleUser.email} <br><br>
+  Address: ${singleUser.address} <br><br> Stride Length: ${singleUser.strideLength} <br><br> Daily Step Goal: ${activityInfo.getUserStepGoal(singleUser.id)}</p>
+  `
+
+
+  dailyBox.innerHTML += `<h1 class='headers' id="dailyData">D A I L Y D A T A</h1> <section class="daily-left" id="dailyBar">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
+   HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
+   SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5
+   <br><br>AVERAGE USER STEPS<br>${activityInfo.getAverageStepsByDate()}<br><br>
+   AVERAGE USER ACTIVE TIME<br>${activityInfo.getAverageActivityByDate()}<br><br>
+   AVERAGE USER STAIRS<br>${activityInfo.getAverageStairsByDate()}<br><br>
+   </section>
+
+   `
+
+
+   activityBox.innerHTML += `<h1 class='headers'>A C T I V I T Y</h1> <br> MOST STAIRS CLIMBED <br> ${activityInfo.getHighestClimbingRecord(singleUser.id)}<br>
+   <br> MINUTES ACTIVE <br> ${activityInfo.getMinActiveByDate(singleUser.id)}
+   <br> <br> STEPS <br> ${activityInfo.getStepsToday(singleUser.id)}<br>
+   <br>${activityInfo.reachStepGoal(singleUser.id)} <br><br>
+   You trotted a whole ${activityInfo.getMilesWalked(singleUser.id)} miles today 💪
+   `
+}
+
 function chartData() {
   const weeklyFluidConsumption = hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id)
   const hydroKeys = Object.keys(weeklyFluidConsumption)
@@ -77,6 +109,18 @@ function chartData() {
   const qualityWeek = sleepInfo.getHourSleptAWeek(singleUser.id, "sleepQuality")
   const qualityKeys = Object.keys(qualityWeek)
   const qualityValues = Object.values(qualityWeek)
+  const weeklySteps = activityInfo.getStepsForWeek(singleUser.id)
+  const stepKeys = Object.keys(weeklySteps)
+  const stepValues = Object.values(weeklySteps)
+  const weeklyStairs = activityInfo.getStairsForWeek(singleUser.id)
+  const stairKeys = Object.keys(weeklyStairs)
+  const stairValues = Object.values(weeklyStairs)
+  const weeklyActivity = activityInfo.getActivityForWeek(singleUser.id)
+  const activityKeys = Object.keys(weeklyActivity)
+  const activityValues = Object.values(weeklyActivity)
+
+
+
 
   const displayStepsChart = new Chart(stepsChart, {
       type: 'doughnut',
@@ -172,20 +216,56 @@ function chartData() {
             maintainAspectRatio: true
         }
       })
-}
-function displayAllData() {
-  chartData()
-  console.log(activityInfo.getMilesWalked(singleUser.id));
-  welcomeSideBar.innerHTML += `<h4 class="welcome-title">W E L C O M E</h4> <p class="welcome-name">${user.userFirstName()}</p>`
-  userDataBox.innerHTML += `<h1 class='headers'>C U R R E N T  U S E R</h1> <p class="user-data-text">Name: ${user.name} <br><br> Email: ${user.email} <br><br>
-  Address: ${user.address} <br><br> Stride Length: ${user.strideLength} <br><br> Daily Step Goal: ${user.dailyStepGoal}</p>`
-  dailyBox.innerHTML += `<h1 class='headers'>D A I L Y D A T A</h1> <p class="daily-text">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
-   HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
-   SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5 <br><br> MINUTES ACTIVE <br> ${activityInfo.getMinActiveByDate(singleUser.id)}
-   <br> <br> STEPS <br> ${activityInfo.getStepsToday(singleUser.id)}</p>`
-  activityBox.innerHTML += `<h1 class='headers'>A C T I V I T Y</h1> <br> MOST STAIRS CLIMBED <br> ${activityInfo.getHighestClimbingRecord(singleUser.id)}<br>
-  <img src=\"https://media3.giphy.com/media/xUPGcKoAYCn5fHK0Zq/giphy.gif"> <br>
-  ${activityInfo.getMilesWalked(singleUser.id)}<br>${activityInfo.reachStepGoal(singleUser.id)}`
+  const displayActivityChart = new Chart(activityChart, {
+      type: 'line',
+      data: {
+          labels: [stepKeys[0],stepKeys[1],stepKeys[2],stepKeys[3],stepKeys[4],stepKeys[5],stepKeys[6]],
+          datasets: [{
+              label: ['Steps'],
+              data: [stepValues[0], stepValues[1], stepValues[2], stepValues[3], stepValues[4], stepValues[5], stepValues[6]],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                      'rgba(255, 99, 132, 1)',
+              ],
+              borderWidth: 1
+          },
+        //   {
+        //     label: ['Flights of stairs'],
+        //     data: [stairsValues[0], stairsValues[1], stairsValues[2], stairsValues[3], stairsValues[4], stairsValues[5], stairsValues[6]],
+        //     backgroundColor: [
+        //       'rgba(255, 159, 64, 0.2)'
+        //     ],
+        //     borderColor: [
+        //         'rgba(255, 159, 64, 1)'
+        //     ],
+        //     borderWidth: 1
+        //     }
+        // },
+        // {
+        //   label: ['Minutes active'],
+        //   data: [activityValues[0], activityValues[1], activityValues[2], activityValues[3], activityValues[4], activityValues[5], activityValues[6]],
+        //   backgroundColor: [
+        //     'rgba(255, 159, 64, 0.2)'
+        //   ],
+        //   borderColor: [
+        //       'rgba(255, 159, 64, 1)'
+        //   ],
+        //   borderWidth: 1
+        // },
+      ]},
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+                // aspectRatio: 1,
+            maintainAspectRatio: true
+        }
+      })
 }
 
 function getRandomId() {
