@@ -1,18 +1,31 @@
-// import { DatasetController } from "chart.js";
-
 class Activity {
-    constructor(activityData) {
-        this.activityData = activityData;
+    constructor(activityData, currentUser) {
+        this.activityData = activityData
+        this.currentUser = currentUser
 
     }
 
-    getUserById(id) {
-        const userID = this.activityData.filter(data => data.userID === id)
+    getUserById() {
+        const userID = this.activityData.filter(data => data.userID === this.currentUser.id)
         return userID
     }
 
+    getStepsToday(id, date) {
+      const activityById = this.getUserById()
+      const getDate = activityById.find(user => user.date)
+      return getDate.numSteps
+    }
+
+    getUserStepGoal(id) {
+      return this.currentUser.dailyStepGoal
+    }
+
+    getUserStrideLength(id) {
+      return this.currentUser.strideLength
+    }
+
      getHighestClimbingRecord(id) {
-        const activityById = this.getUserById(id)
+        const activityById = this.getUserById()
         let reduced = Object.keys(activityById).reduce((acc, currentRecord) => {
             if (acc < activityById[currentRecord].flightsOfStairs) {
                 acc = activityById[currentRecord].flightsOfStairs
@@ -23,97 +36,93 @@ class Activity {
       }
 
       getMinActiveByDate(id) {
-        const activityById = this.getUserById(id)
-        const getDate = activityById.map(activity => activity.date).shift()
-        const activityByDate = activityById.find(activity => activity.date === getDate)
-        return activityByDate.minutesActive
+        const activityById = this.getUserById()
+        const getDate = activityById.find(user => user.date)
+        return getDate.minutesActive;
       }
 
-        getAverageActivityByDate(date) {
-          const byDate = this.activityData.filter(user => user.date === date);
-          const avgActivity = byDate.reduce((acc, user) => {
-            acc += user.minutesActive;
-            return acc;
-          }, 0) / byDate.length
-          console.log(Math.round(avgActivity))
-          return Math.round(avgActivity)
-        }
-
-        getAverageStepsByDate(date) {
-          const byDate = this.activityData.filter(user => user.date === date);
-          const avgSteps = byDate.reduce((acc, user) => {
-            acc += user.numSteps;
-            return acc;
-          }, 0) / byDate.length
-          return Math.round(avgSteps)
-        }
-
-        getAverageStairsByDate(date) {
-          const byDate = this.activityData.filter(user => user.date === date);
-          const avgStairs = byDate.reduce((acc, user) => {
-            acc += user.flightsOfStairs;
-            return acc;
-          }, 0) / byDate.length
-          return Math.round(avgStairs)
-        }
-
-        getMilesWalked(id, user, date) {
-          const keys = Object.keys(user)
-          const activityById = this.getUserById(id)
-          const milesWalked = activityById.reduce((acc, currentUser) => {
-            user[keys].filter(use => {
-              if(currentUser.userID === use.id) {
-                acc = (use.strideLength * currentUser.numSteps) / 5280
-              }
-            })
-            return acc;
+        getAverageActivityByDate() {
+          const getDate = this.activityData.filter(user => user.date)
+          let totals = getDate.reduce((sum, user) => {
+              return sum += user.minutesActive
           }, 0)
+          return Math.round(totals / getDate.length)
+        }
+
+        getAverageStepsByDate() {
+          const getDate = this.activityData.filter(user => user.date)
+          const totals = getDate.reduce((sum, user) => {
+              return sum += user.numSteps
+          }, 0)
+          return Math.round(totals / getDate.length)
+        }
+
+        getAverageStairsByDate() {
+          const getDate = this.activityData.filter(user => user.date)
+          const totals = getDate.reduce((sum, user) => {
+              return sum += user.flightsOfStairs
+          }, 0)
+          return Math.round(totals / getDate.length)
+        }
+        
+        getMilesWalked(id) {
+          const activityById = this.getUserById()
+          const getDate = activityById.find(user => user.date)
+          const milesWalked = (getDate.numSteps * this.currentUser.strideLength) / 5280;
           console.log(Math.round(milesWalked*2)/2)
-          return Math.round(milesWalked*2)/2;
+          return Math.round(milesWalked*2)/2
         }
 
-        reachStepGoal(id, user, date) {
-          const keys = Object.keys(user)
-          const activityById = this.getUserById(id)
-          const compareSteps = activityById.reduce((acc, currentUser) => {
-            let newUser = user[keys].filter(use => {
-              if(currentUser.userID === use.id) {
-                if (currentUser.numSteps >= use.dailyStepGoal) {
-                  acc = true
-                } else {
-                  acc = false
-                }
-              }
-            })
-            return acc
+        reachStepGoal(id, date) {
+          let message = '';
+          const byDate = this.activityData.filter(user => user.date === date);
+          const activityById = this.getUserById();
+          const checkSteps = activityById.find(user => {
+            let remainingSteps = this.getUserStepGoal() - this.getStepsToday();
+            if(this.getStepsToday() >= this.getUserStepGoal()) {
+              message = 'You have reached your step goal today!'
+            } else {
+              message = `You are ${remainingSteps} steps away from your step goal! Keep it up`
+            }
           })
-          return compareSteps
+          return message
         }
 
-        reachStepGoalByDate(id, user, date) {
-          const keys = Object.keys(user)
-          const activityById = this.getUserById(id)
-          const compareSteps = activityById.reduce((acc, currentUser) => {
-            let newUser = user[keys].filter(use => {
-              if(currentUser.userID === use.id && date === currentUser.date) {
-                if (currentUser.numSteps >= use.dailyStepGoal) {
-                  acc.push(currentUser.date);
-                }
-              }
-            })
+        getStepsForWeek(id) {
+          const activityById = this.getUserById().splice(0, 7)
+          const stepsWeek = activityById.reduce((acc, currentUser) => {
+            acc[currentUser.date] = currentUser.numSteps
             return acc
-          }, [])
-          console.log(compareSteps)
-          return compareSteps
+          }, {})
+          return stepsWeek
+        }
+
+        getStairsForWeek(id) {
+          const activityById = this.getUserById().splice(0, 7)
+          const stairsWeek = activityById.reduce((acc, currentUser) => {
+            acc[currentUser.date] = currentUser.flightsOfStairs
+            return acc
+          }, {})
+          return stairsWeek
+        }
+
+
+        getActivityForWeek(id) {
+          const activityById = this.getUserById().splice(0, 7)
+          const activeWeek = activityById.reduce((acc, currentUser) => {
+            acc[currentUser.date] = currentUser.minutesActive
+            return acc
+          }, {})
+          return activeWeek
         }
 
         getActivityAvgWeek(id) {
-          const activityById = this.getUserById(id).splice(0, 7)
-          const activeWeek = activityById.reduce((acc, currentUser) => {
+          const activityById = this.getUserById().splice(0, 7)
+          const avgActiveWeek = activityById.reduce((acc, currentUser) => {
             acc += currentUser.minutesActive
             return acc
-          }, 0) / activityById.length
-          return activeWeek
+          }, 0)
+          return avgActiveWeek
         }
       }
 

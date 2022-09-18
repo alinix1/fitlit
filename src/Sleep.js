@@ -7,7 +7,6 @@ class Sleep {
     const userID = this.sleepData.filter(data => data.userID === id)
     return userID
   }
-
   calculateAverageSleep(id, hoursOrQuality) {
     const sleepById = this.getUserById(id)
     const avgSleep = sleepById.reduce((sum, data) => {
