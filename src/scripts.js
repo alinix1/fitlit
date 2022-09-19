@@ -30,10 +30,17 @@ const activityForm = document.getElementById('activityForm')
 const sleepForm = document.getElementById('sleepForm')
 const hydrationForm = document.getElementById('hydrationForm')
 const formSection = document.getElementById('formSection')
-
-
-
-
+const dropBtn = document.getElementById('dropBtn')
+const hydrationTab = document.getElementById('hydrationTab')
+const stepsTab = document.getElementById('stepsTab')
+const sleepTab = document.getElementById('sleepTab')
+const stairsTab = document.getElementById('stairsTab')
+const minActiveTab = document.getElementById('minActiveTab')
+const hydrationChartDiv = document.getElementById('hydrationChartDiv')
+const stepsChartDiv = document.getElementById('stepsChartDiv')
+const sleepChartDiv = document.getElementById('sleepChartDiv')
+const stairsChartDiv = document.getElementById('stairsChartDiv')
+const minActiveChartDiv = document.getElementById('minActiveChartDiv')
 // --------------------------------------------------- GLOBAL VARIABLES
 let userRepository = new UserRepository()
 let user
@@ -49,10 +56,15 @@ let activityInfo = [];
 
 window.addEventListener('load', instantiateData)
 refreshButton.addEventListener('click', refreshingButton);
-// formBox.addEventListener('input', enableButton)
 activityForm.addEventListener('click', displayActivityForm)
 sleepForm.addEventListener('click',displaySleepForm)
 hydrationForm.addEventListener('click',displayHydrationForm)
+hydrationTab.addEventListener('click', showHydrationChart)
+stepsTab.addEventListener('click', showStepsChart)
+sleepTab.addEventListener('click', showSleepChart)
+stairsTab.addEventListener('click', showStairsChart)
+minActiveTab.addEventListener('click', showMinActiveChart)
+
 
 
 // --------------------------------------------------- FETCH PROMISES
@@ -62,7 +74,7 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSl
       return userList = {...userList, ...userItem}
     }, {})
     instantiateData(allUserData)
-    displayUserData()
+    assignUser()
     displayAllData()
     })
 
@@ -77,26 +89,31 @@ function instantiateData(data) {
   activityInfo = new Activity(data.activityData, singleUser)
 }
 
-function displayUserData(id, date) {
-  randomUser = getRandomId(singleUser.id)
-  user = userRepository.users[randomUser]
-  // id = user.id
-  // date = user.date
+function displayAllData() {
+  displayWelcomeData()
+  displayCurrentUserData()
+  displayUserData()
+  displayActivityInfo()
+  displayChartData()
 }
 
-function displayAllData() {
-  chartData()
-  // console.log(activityInfo.getMilesWalked(singleUser.id))
-  // console.log(activityInfo.getAverageActivityByDate());
-  console.log(activityInfo.getActivityForWeek(singleUser.id));
-  welcomeSideBar.innerHTML += `<h4 class="welcome-title">W E L C O M E</h4> <p class="welcome-name">${singleUser.userFirstName(singleUser.id)}</p>`
+function assignUser() {
+  randomUser = getRandomId(singleUser.id)
+  user = userRepository.users[randomUser]
+}
 
+function displayWelcomeData() {
+  welcomeSideBar.innerHTML += `<h4 class="welcome-title">W E L C O M E</h4> <p class="welcome-name">${singleUser.userFirstName(singleUser.id)}</p>`
+}
+
+function displayCurrentUserData() {
   userDataBox.innerHTML += `<h1 class='headers'>C U R R E N T  U S E R</h1> <p class="user-data-text">Name: ${singleUser.name} <br><br> Email: ${singleUser.email} <br><br>
   Address: ${singleUser.address} <br><br> Stride Length: ${singleUser.strideLength} <br><br> Daily Step Goal: ${activityInfo.getUserStepGoal(singleUser.id)}</p>
   `
+}
 
-
-  dailyBox.innerHTML += `<h1 class='headers' id="dailyData">D A I L Y&nbsp;&nbsp;D A T A</h1> <section class="daily-left" id="dailyBar">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
+function displayUserData() {
+  dailyBox.innerHTML += `<h1 class='headers' id="dailyData">D A I L Y D A T A</h1> <section class="daily-left" id="dailyBar">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
    HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
    SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5
    <br><br>AVERAGE USER STEPS<br>${activityInfo.getAverageStepsByDate()}<br><br>
@@ -105,17 +122,16 @@ function displayAllData() {
    </section>
 
    `
-
-
+}
+function displayActivityInfo() {
    activityBox.innerHTML += `<h1 class='headers'>A C T I V I T Y</h1> <br> MOST STAIRS CLIMBED <br> ${activityInfo.getHighestClimbingRecord(singleUser.id)}<br>
    <br> MINUTES ACTIVE <br> ${activityInfo.getMinActiveByDate(singleUser.id)}
    <br> <br> STEPS <br> ${activityInfo.getStepsToday(singleUser.id)}<br>
    <br>${activityInfo.reachStepGoal(singleUser.id)} <br><br>
    You trotted a whole ${activityInfo.getMilesWalked(singleUser.id)} miles today 💪
-   `
-}
+   `}
 
-function chartData() {
+function displayChartData() {
   const weeklyFluidConsumption = hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id)
   const hydroKeys = Object.keys(weeklyFluidConsumption)
   const hydroValues = Object.values(weeklyFluidConsumption)
@@ -134,10 +150,6 @@ function chartData() {
   const weeklyActivity = activityInfo.getActivityForWeek(singleUser.id)
   const activityKeys = Object.keys(weeklyActivity)
   const activityValues = Object.values(weeklyActivity)
-
-
-
-
   const displayStepsChart = new Chart(stepsChart, {
       type: 'doughnut',
       data: {
@@ -164,7 +176,6 @@ function chartData() {
           maintainAspectRatio: true
         }
     })
-
   const displayHydrationChart = new Chart(hydrationChart, {
       type: 'bar',
       data: {
@@ -192,96 +203,95 @@ function chartData() {
           maintainAspectRatio: false// maintainAspectRatio: false
       }
   })
-
-  const displaySleepChart = new Chart(sleepChart, {
-      type: 'line',
-      data: {
-          labels: [sleepyKeys[0],sleepyKeys[1],sleepyKeys[2],sleepyKeys[3],sleepyKeys[4],sleepyKeys[5],sleepyKeys[6]],
-          datasets: [{
-              label: ['Hours Slept'],
-              data: [sleepyValues[0], sleepyValues[1], sleepyValues[2], sleepyValues[3], sleepyValues[4], sleepyValues[5], sleepyValues[6]],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-              ],
-              borderWidth: 1
-          },
-          {
-            label: ['Quality of Sleep (0-5)'],
-            data: [qualityValues[0], qualityValues[1], qualityValues[2], qualityValues[3], qualityValues[4], qualityValues[5], qualityValues[6]],
-            backgroundColor: [
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-            }
-          ]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            responsive: true,
-            // aspectRatio: 1,
-            maintainAspectRatio: true
-        }
-      })
-  const displayActivityChart = new Chart(activityChart, {
-      type: 'line',
-      data: {
-          labels: [stepKeys[0],stepKeys[1],stepKeys[2],stepKeys[3],stepKeys[4],stepKeys[5],stepKeys[6]],
-          datasets: [{
-              label: ['Steps'],
-              data: [stepValues[0], stepValues[1], stepValues[2], stepValues[3], stepValues[4], stepValues[5], stepValues[6]],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-              ],
-              borderColor: [
-                      'rgba(255, 99, 132, 1)',
-              ],
-              borderWidth: 1
-          },
-        //   {
-        //     label: ['Flights of stairs'],
-        //     data: [stairsValues[0], stairsValues[1], stairsValues[2], stairsValues[3], stairsValues[4], stairsValues[5], stairsValues[6]],
-        //     backgroundColor: [
-        //       'rgba(255, 159, 64, 0.2)'
-        //     ],
-        //     borderColor: [
-        //         'rgba(255, 159, 64, 1)'
-        //     ],
-        //     borderWidth: 1
-        //     }
-        // },
-        // {
-        //   label: ['Minutes active'],
-        //   data: [activityValues[0], activityValues[1], activityValues[2], activityValues[3], activityValues[4], activityValues[5], activityValues[6]],
-        //   backgroundColor: [
-        //     'rgba(255, 159, 64, 0.2)'
-        //   ],
-        //   borderColor: [
-        //       'rgba(255, 159, 64, 1)'
-        //   ],
-        //   borderWidth: 1
-        // },
-      ]},
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            responsive: true,
-                // aspectRatio: 1,
-            maintainAspectRatio: true
-        }
-      })
+  // const displaySleepChart = new Chart(sleepChart, {
+  //     type: 'line',
+  //     data: {
+  //         labels: [sleepyKeys[0],sleepyKeys[1],sleepyKeys[2],sleepyKeys[3],sleepyKeys[4],sleepyKeys[5],sleepyKeys[6]],
+  //         datasets: [{
+  //             label: ['Hours Slept'],
+  //             data: [sleepyValues[0], sleepyValues[1], sleepyValues[2], sleepyValues[3], sleepyValues[4], sleepyValues[5], sleepyValues[6]],
+  //             backgroundColor: [
+  //                 'rgba(255, 99, 132, 0.2)',
+  //             ],
+  //             borderColor: [
+  //                 'rgba(255, 99, 132, 1)',
+  //             ],
+  //             borderWidth: 1
+  //         },
+  //         {
+  //           label: ['Quality of Sleep (0-5)'],
+  //           data: [qualityValues[0], qualityValues[1], qualityValues[2], qualityValues[3], qualityValues[4], qualityValues[5], qualityValues[6]],
+  //           backgroundColor: [
+  //             'rgba(255, 159, 64, 0.2)'
+  //           ],
+  //           borderColor: [
+  //               'rgba(255, 159, 64, 1)'
+  //           ],
+  //           borderWidth: 1
+  //           }
+  //         ]
+  //       },
+  //       options: {
+  //           scales: {
+  //               y: {
+  //                   beginAtZero: true
+  //               }
+  //           },
+  //           responsive: true,
+  //           // aspectRatio: 1,
+  //           maintainAspectRatio: true
+  //       }
+  //     })
+  // const displayActivityChart = new Chart(activityChart, {
+  //     type: 'line',
+  //     data: {
+  //         labels: [stepKeys[0],stepKeys[1],stepKeys[2],stepKeys[3],stepKeys[4],stepKeys[5],stepKeys[6]],
+  //         datasets: [{
+  //             label: ['Steps'],
+  //             data: [stepValues[0], stepValues[1], stepValues[2], stepValues[3], stepValues[4], stepValues[5], stepValues[6]],
+  //             backgroundColor: [
+  //                 'rgba(255, 99, 132, 0.2)',
+  //             ],
+  //             borderColor: [
+  //                     'rgba(255, 99, 132, 1)',
+  //             ],
+  //             borderWidth: 1
+  //         },
+  //       //   {
+  //       //     label: ['Flights of stairs'],
+  //       //     data: [stairsValues[0], stairsValues[1], stairsValues[2], stairsValues[3], stairsValues[4], stairsValues[5], stairsValues[6]],
+  //       //     backgroundColor: [
+  //       //       'rgba(255, 159, 64, 0.2)'
+  //       //     ],
+  //       //     borderColor: [
+  //       //         'rgba(255, 159, 64, 1)'
+  //       //     ],
+  //       //     borderWidth: 1
+  //       //     }
+  //       // },
+  //       // {
+  //       //   label: ['Minutes active'],
+  //       //   data: [activityValues[0], activityValues[1], activityValues[2], activityValues[3], activityValues[4], activityValues[5], activityValues[6]],
+  //       //   backgroundColor: [
+  //       //     'rgba(255, 159, 64, 0.2)'
+  //       //   ],
+  //       //   borderColor: [
+  //       //       'rgba(255, 159, 64, 1)'
+  //       //   ],
+  //       //   borderWidth: 1
+  //       // },
+  //     ]},
+  //       options: {
+  //           scales: {
+  //               y: {
+  //                   beginAtZero: true
+  //               }
+  //           },
+  //           responsive: true,
+  //               // aspectRatio: 1,
+  //           maintainAspectRatio: true
+  //       }
+  //     })
 }
 
 function getRandomId() {
@@ -292,40 +302,58 @@ function refreshingButton() {
     location.reload();
 }
 
-// function enableButton() {
-//     if (nameIp.value && sleepIp.value && hydrationIp.value && activityIp.value) {
-//       submitBtn.disabled = false;
-//     } else {
-//       submitBtn.disabled = true;
-//     }
-// }
-
 function displayActivityForm() {
-    formSection.innerHTML += `<form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
-        Name <br><input type="text" name="fname" id="nameIp"><br>
-        Sleep <br><input type="text" name="fname" id="sleepIp"><br>
-        Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
-        Activity <br><input type="text" name="fname" id="activityIp"><br><br>
-    <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
+  dropBtn.classList.add('hidden')
+  hydrationForm.classList.add('hidden')
+  sleepForm.classList.add('hidden')
+    formSection.innerHTML += `<form name="dataForm" class="form-box" id="activityForm" action="" onsubmit="return validateForm()" method="post">
+          Minutes Active <br><input type="text" name="fname" id="nameIp"><br>
+          Flights Of Stairs <br><input type="text" name="fname" id="nameIp"><br>
+          Steps <br><input type="text" name="fname" id="nameIp"><br>
+        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
 }
 
 function displayHydrationForm() {
-    formSection.innerHTML += `<form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
-        Name <br><input type="text" name="fname" id="nameIp"><br>
-        Sleep <br><input type="text" name="fname" id="sleepIp"><br>
-        Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
-        Activity <br><input type="text" name="fname" id="activityIp"><br><br>
-    <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
+    activityForm.classList.add('hidden')
+    sleepForm.classList.add('hidden')
+    formSection.innerHTML += `<form name="dataForm" class="form-box" id="hydrationForm" action="" onsubmit="return validateForm()" method="post">
+          Water Drank(oz)<br><input type="text" name="fname" id="nameIp"><br>
+        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
 
 }
 
 function displaySleepForm() {
-    formSection.innerHTML += `<form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
-        Name <br><input type="text" name="fname" id="nameIp"><br>
-        Sleep <br><input type="text" name="fname" id="sleepIp"><br>
-        Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
-        Activity <br><input type="text" name="fname" id="activityIp"><br><br>
-    <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
+  hydrationForm.classList.add('hidden')
+  activityForm.classList.add('hidden')
+    formSection.innerHTML += `<form name="dataForm" class="form-box" id="sleepForm" action="" onsubmit="return validateForm()" method="post">
+          Hours Slept<br><input type="text" name="fname" id="nameIp"><br>
+          Sleep Quality(0-5)<br><input type="text" name="fname" id="nameIp"><br>
+        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
 
 }
 
+function hideAllCharts() {
+  hydrationChartDiv.setAttribute('hidden', 'hidden')
+  stepsChartDiv.setAttribute('hidden', 'hidden')
+  // activityChart.classList.add('hidden')
+  // sleepChart.classList.add('hidden')
+}
+function showHydrationChart() {
+  stepsChartDiv.setAttribute('hidden', 'hidden')
+  hydrationChartDiv.removeAttribute('hidden')
+}
+function showStepsChart() {
+  hydrationChartDiv.setAttribute('hidden', 'hidden')
+  stepsChartDiv.removeAttribute('hidden')
+}
+function showSleepChart() {
+
+}
+
+function showMinActiveChart() {
+
+}
+
+function showStairsChart() {
+
+}

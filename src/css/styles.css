@@ -81,10 +81,11 @@ canvas {
     background-repeat: no-repeat;
 }
 
-.refresh-button, .submit-button {
+.refresh-button {
     width: 70px;
     height: 30px;
     transition-duration: 0.5s;
+    margin-top: 200px;
 }
 
 .refresh-button:hover, .submit-button:hover {
@@ -143,7 +144,7 @@ canvas {
     gap: 20px;
 }
 
-/* .steps-chart, .sleep-chart, .hyrdation-chart 
+/* .steps-chart, .sleep-chart, .hyrdation-chart
 {
   display: grid;
   gap: 1em;
@@ -171,7 +172,7 @@ canvas {
   margin: 0;
   border: 0;
 }
-.daily-text, 
+.daily-text,
 .user-data-text {
   margin-bottom: 15px;
   padding-bottom: 15px;
@@ -276,5 +277,3 @@ canvas {
 .btn-nav.active {
   background-color: lightcoral;
 }
-
-
