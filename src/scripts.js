@@ -172,8 +172,8 @@ function displayChartData() {
                   beginAtZero: true
               }
           },
-          responsive: false,
-        //   aspectRatio: 1,
+          responsive: true,
+          aspectRatio: 1 | 4,
           maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
@@ -211,8 +211,8 @@ function displayChartData() {
                     beginAtZero: true
                 }
             },
-            responsive: false,
-            // aspectRatio: 1,
+            responsive: true,
+            aspectRatio: 1 | 4,
             maintainAspectRatio: true
         }
       })
@@ -248,8 +248,8 @@ function displayChartData() {
                     beginAtZero: true
                 }
             },
-            responsive: false,
-                // aspectRatio: 1,
+            responsive: true,
+                aspectRatio: 1 | 4,
             maintainAspectRatio: true
         }
       })
@@ -275,8 +275,8 @@ function displayChartData() {
                   beginAtZero: true
               }
           },
-          responsive: false,
-        //   aspectRatio: 1,
+          responsive: true,
+          aspectRatio: 1 | 4,
           maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
@@ -302,8 +302,8 @@ function displayChartData() {
                   beginAtZero: true
               }
           },
-          responsive: false,
-        //   aspectRatio: 1,
+          responsive: true,
+          aspectRatio: 1 | 4,
           maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
