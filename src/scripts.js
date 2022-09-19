@@ -150,32 +150,6 @@ function displayChartData() {
   const weeklyActivity = activityInfo.getActivityForWeek(singleUser.id)
   const activityKeys = Object.keys(weeklyActivity)
   const activityValues = Object.values(weeklyActivity)
-  const displayStepsChart = new Chart(stepsChart, {
-      type: 'doughnut',
-      data: {
-          labels: ['Daily User Step Goal', 'Users Avg Step Goal'],
-          datasets: [{
-              label: 'Steps',
-              data: [user.dailyStepGoal, userRepository.getUserAverageStepGoal().toFixed(0)], //parameters referrenced
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-
-          },
-          responsive: true,
-          maintainAspectRatio: true
-        }
-    })
   const displayHydrationChart = new Chart(hydrationChart, {
       type: 'bar',
       data: {
@@ -200,98 +174,139 @@ function displayChartData() {
           },
           responsive: false,
         //   aspectRatio: 1,
-          maintainAspectRatio: false// maintainAspectRatio: false
+          maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
-  // const displaySleepChart = new Chart(sleepChart, {
-  //     type: 'line',
-  //     data: {
-  //         labels: [sleepyKeys[0],sleepyKeys[1],sleepyKeys[2],sleepyKeys[3],sleepyKeys[4],sleepyKeys[5],sleepyKeys[6]],
-  //         datasets: [{
-  //             label: ['Hours Slept'],
-  //             data: [sleepyValues[0], sleepyValues[1], sleepyValues[2], sleepyValues[3], sleepyValues[4], sleepyValues[5], sleepyValues[6]],
-  //             backgroundColor: [
-  //                 'rgba(255, 99, 132, 0.2)',
-  //             ],
-  //             borderColor: [
-  //                 'rgba(255, 99, 132, 1)',
-  //             ],
-  //             borderWidth: 1
-  //         },
-  //         {
-  //           label: ['Quality of Sleep (0-5)'],
-  //           data: [qualityValues[0], qualityValues[1], qualityValues[2], qualityValues[3], qualityValues[4], qualityValues[5], qualityValues[6]],
-  //           backgroundColor: [
-  //             'rgba(255, 159, 64, 0.2)'
-  //           ],
-  //           borderColor: [
-  //               'rgba(255, 159, 64, 1)'
-  //           ],
-  //           borderWidth: 1
-  //           }
-  //         ]
-  //       },
-  //       options: {
-  //           scales: {
-  //               y: {
-  //                   beginAtZero: true
-  //               }
-  //           },
-  //           responsive: true,
-  //           // aspectRatio: 1,
-  //           maintainAspectRatio: true
-  //       }
-  //     })
-  // const displayActivityChart = new Chart(activityChart, {
-  //     type: 'line',
-  //     data: {
-  //         labels: [stepKeys[0],stepKeys[1],stepKeys[2],stepKeys[3],stepKeys[4],stepKeys[5],stepKeys[6]],
-  //         datasets: [{
-  //             label: ['Steps'],
-  //             data: [stepValues[0], stepValues[1], stepValues[2], stepValues[3], stepValues[4], stepValues[5], stepValues[6]],
-  //             backgroundColor: [
-  //                 'rgba(255, 99, 132, 0.2)',
-  //             ],
-  //             borderColor: [
-  //                     'rgba(255, 99, 132, 1)',
-  //             ],
-  //             borderWidth: 1
-  //         },
-  //       //   {
-  //       //     label: ['Flights of stairs'],
-  //       //     data: [stairsValues[0], stairsValues[1], stairsValues[2], stairsValues[3], stairsValues[4], stairsValues[5], stairsValues[6]],
-  //       //     backgroundColor: [
-  //       //       'rgba(255, 159, 64, 0.2)'
-  //       //     ],
-  //       //     borderColor: [
-  //       //         'rgba(255, 159, 64, 1)'
-  //       //     ],
-  //       //     borderWidth: 1
-  //       //     }
-  //       // },
-  //       // {
-  //       //   label: ['Minutes active'],
-  //       //   data: [activityValues[0], activityValues[1], activityValues[2], activityValues[3], activityValues[4], activityValues[5], activityValues[6]],
-  //       //   backgroundColor: [
-  //       //     'rgba(255, 159, 64, 0.2)'
-  //       //   ],
-  //       //   borderColor: [
-  //       //       'rgba(255, 159, 64, 1)'
-  //       //   ],
-  //       //   borderWidth: 1
-  //       // },
-  //     ]},
-  //       options: {
-  //           scales: {
-  //               y: {
-  //                   beginAtZero: true
-  //               }
-  //           },
-  //           responsive: true,
-  //               // aspectRatio: 1,
-  //           maintainAspectRatio: true
-  //       }
-  //     })
+  const displaySleepChart = new Chart(sleepChart, {
+      type: 'line',
+      data: {
+          labels: [sleepyKeys[0],sleepyKeys[1],sleepyKeys[2],sleepyKeys[3],sleepyKeys[4],sleepyKeys[5],sleepyKeys[6]],
+          datasets: [{
+              label: ['Hours Slept'],
+              data: [sleepyValues[0], sleepyValues[1], sleepyValues[2], sleepyValues[3], sleepyValues[4], sleepyValues[5], sleepyValues[6]],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+              ],
+              borderWidth: 1
+          },
+          {
+            label: ['Quality of Sleep (0-5)'],
+            data: [qualityValues[0], qualityValues[1], qualityValues[2], qualityValues[3], qualityValues[4], qualityValues[5], qualityValues[6]],
+            backgroundColor: [
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+            }
+          ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: false,
+            // aspectRatio: 1,
+            maintainAspectRatio: true
+        }
+      })
+  const displayStepsChart = new Chart(stepsChart, {
+      type: 'bar',
+      data: {
+          labels: [stepKeys[0],stepKeys[1],stepKeys[2],stepKeys[3],stepKeys[4],stepKeys[5],stepKeys[6]],
+          datasets: [{
+              label: ['Steps'],
+              data: [stepValues[0], stepValues[1], stepValues[2], stepValues[3], stepValues[4], stepValues[5], stepValues[6]],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                      'rgba(255, 99, 132, 1)',
+              ],
+              borderWidth: 1
+            }, {
+              label: ['All Users Average Steps'],
+              data: [userRepository.getUserAverageStepGoal().toFixed(0), userRepository.getUserAverageStepGoal().toFixed(0), userRepository.getUserAverageStepGoal().toFixed(0), userRepository.getUserAverageStepGoal().toFixed(0), userRepository.getUserAverageStepGoal().toFixed(0), userRepository.getUserAverageStepGoal().toFixed(0), userRepository.getUserAverageStepGoal().toFixed(0)],
+              backgroundColor: [
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }
+        ]},
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: false,
+                // aspectRatio: 1,
+            maintainAspectRatio: true
+        }
+      })
+  const displayStairsChart = new Chart(stairsChart, {
+      type: 'line',
+      data: {
+          labels: [stairKeys[0], stairKeys[1], stairKeys[2], stairKeys[3], stairKeys[4], stairKeys[5], stairKeys[6]],
+          datasets: [{
+              label: 'Flights of Stairs',
+              data: [stairValues[0], stairValues[1], stairValues[2], stairValues[3], stairValues[4], stairValues[5], stairValues[6]],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(153, 102, 255, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+          responsive: false,
+        //   aspectRatio: 1,
+          maintainAspectRatio: true// maintainAspectRatio: false
+      }
+  })
+  const displayMinActiveChart = new Chart(minActiveChart, {
+      type: 'line',
+      data: {
+          labels: [activityKeys[0], activityKeys[1], activityKeys[2], activityKeys[3], activityKeys[4], activityKeys[5], activityKeys[6]],
+          datasets: [{
+              label: 'Activity Time(minutes)',
+              data: [activityValues[0], activityValues[1], activityValues[2], activityValues[3], activityValues[4], activityValues[5], activityValues[6]],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(153, 102, 255, 1)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+          responsive: false,
+        //   aspectRatio: 1,
+          maintainAspectRatio: true// maintainAspectRatio: false
+      }
+  })
 }
 
 function getRandomId() {
@@ -333,27 +348,39 @@ function displaySleepForm() {
 }
 
 function hideAllCharts() {
-  hydrationChartDiv.setAttribute('hidden', 'hidden')
-  stepsChartDiv.setAttribute('hidden', 'hidden')
-  // activityChart.classList.add('hidden')
-  // sleepChart.classList.add('hidden')
+  hide(stepsChartDiv)
+  hide(sleepChartDiv)
+  hide(stairsChartDiv)
+  hide(minActiveChartDiv)
+  hide(hydrationChartDiv)
 }
 function showHydrationChart() {
-  stepsChartDiv.setAttribute('hidden', 'hidden')
-  hydrationChartDiv.removeAttribute('hidden')
+  hideAllCharts()
+  show(hydrationChartDiv)
 }
 function showStepsChart() {
-  hydrationChartDiv.setAttribute('hidden', 'hidden')
-  stepsChartDiv.removeAttribute('hidden')
+  hideAllCharts()
+  show(stepsChartDiv)
 }
 function showSleepChart() {
-
+  hideAllCharts()
+  show(sleepChartDiv)
 }
 
 function showMinActiveChart() {
-
+  hideAllCharts()
+  show(minActiveChartDiv)
 }
 
 function showStairsChart() {
+  hideAllCharts()
+  show(stairsChartDiv)
+}
 
+function show(e) {
+  e.removeAttribute('hidden')
+}
+
+function hide(item) {
+  item.setAttribute('hidden', 'hidden')
 }
