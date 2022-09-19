@@ -11,31 +11,50 @@
         <h1 class="fitlit-title" id ="fitlitTitle">F I T L I T</h1>
         <div class="welcome-text" id="welcomeText"></div>
         <section class="logo-container" id="logoContainer"></section>
-          <form name="dataForm" class="form-box" action="" onsubmit="return validateForm()" method="post">
-          Name <br><input type="text" name="fname"><br>
-          Sleep <br><input type="text" name="fname"><br>
-          Hydration <br><input type="text" name="fname"><br>
-          Activity <br><input type="text" name="fname"><br><br>
-        <input class="submit-button" type="submit" value="Send it!"><br>
+        <section class="" id="formSection"></section>
+          <form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
+          Name <br><input type="text" name="fname" id="nameIp"><br>
+          Sleep <br><input type="text" name="fname" id="sleepIp"><br>
+          Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
+          Activity <br><input type="text" name="fname" id="activityIp"><br><br>
+        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>
         </form>
+        <section class="dropdown">
+          <button class="dropbtn">User Data Entry</button>
+          <aside class="dropdown-content">
+            <a href="#" id="activityForm">Activity Data</a>
+            <a href="#" id="sleepForm">Sleep Data</a>
+            <a href="#" id="hydrationForm">Hydration Data</a>
+          </aside>
+        </section>
         <button class="refresh-button" id="refreshButton">Refresh</button>
       </section>
       <section class="widget-box" id="widgetBox">
-        <div class="activity-box" id="activityBox"></div>
-        <div class="user-data-box" id="userDataBox"></div>
         <div class="daily-box" id="dailyBox"></div>
+        <div class="user-data-box" id="userDataBox"></div>
+        <div class="hydration-box" id="hydrationBox">
+          <h1 class="chart-box-title">W E E K L Y&nbsp;&nbsp;C H A R T&nbsp;&nbsp;D A T A</h1>
+          <nav class="btn-nav" id="btnNav">
+            <button class="sleep-tab" id="sleepTab">sleep</button>
+            <button class="hydration-tab" id="hydrationTab">hydration</button>
+            <button class="steps-tab" id="stepsTab">steps</button>
+            <button class="stairs-tab" id="stairsTab">stairs</button>
+            <button class="minActive-tab" id="minActiveTab">minutes active</button>
+          </nav>
+          <canvas class="hydration-chart" id="hydrationChart"></canvas>
+        </div>
+        <div class="activity-box" id="activityBox"></div>
         <div class="step-box" id="stepBox">
           <h1>S T E P S</h1>
           <canvas class="steps-chart" id="stepsChart"></canvas>
-        </div>
-        <div class="hydration-box" id="hydrationBox">
-          <h1>H Y D R A T I O N</h1>
-          <canvas class="hydration-chart" id="hydrationChart"></canvas>
         </div>
         <div class="sleep-box" id="sleepBox">
           <h1>S L E E P</h1>
           <canvas class="sleep-chart" id="sleepChart"></canvas>
         </div>
+      </section>
+      <section>
+
       </section>
     </main>
     <script src="bundle.js"></script>

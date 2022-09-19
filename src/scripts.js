@@ -20,6 +20,17 @@ const activityChart = document.getElementById('activityChart')
 const refreshButton = document.getElementById('refreshButton')
 const welcomeSideBar = document.getElementById('welcomeText')
 const activityBox = document.getElementById('activityBox')
+const formBox = document.getElementById('formBox')
+const submitBtn = document.getElementById('submitBtn')
+const nameIp = document.getElementById('nameIp')
+const sleepIp = document.getElementById('sleepIp')
+const hydrationIp = document.getElementById('hydrationIp')
+const activityIp = document.getElementById('activityIp')
+const activityForm = document.getElementById('activityForm')
+const sleepForm = document.getElementById('sleepForm')
+const hydrationForm = document.getElementById('hydrationForm')
+const formSection = document.getElementById('formSection')
+
 
 
 
@@ -38,6 +49,11 @@ let activityInfo = [];
 
 window.addEventListener('load', instantiateData)
 refreshButton.addEventListener('click', refreshingButton);
+// formBox.addEventListener('input', enableButton)
+activityForm.addEventListener('click', displayActivityForm)
+sleepForm.addEventListener('click',displaySleepForm)
+hydrationForm.addEventListener('click',displayHydrationForm)
+
 
 // --------------------------------------------------- FETCH PROMISES
 Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSleepData(), apiCalls.getActivityData()])
@@ -80,7 +96,7 @@ function displayAllData() {
   `
 
 
-  dailyBox.innerHTML += `<h1 class='headers' id="dailyData">D A I L Y D A T A</h1> <section class="daily-left" id="dailyBar">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
+  dailyBox.innerHTML += `<h1 class='headers' id="dailyData">D A I L Y&nbsp;&nbsp;D A T A</h1> <section class="daily-left" id="dailyBar">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
    HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
    SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5
    <br><br>AVERAGE USER STEPS<br>${activityInfo.getAverageStepsByDate()}<br><br>
@@ -171,9 +187,9 @@ function chartData() {
                   beginAtZero: true
               }
           },
-          responsive: true,
-          // aspectRatio: 1,
-          maintainAspectRatio: true// maintainAspectRatio: false
+          responsive: false,
+        //   aspectRatio: 1,
+          maintainAspectRatio: false// maintainAspectRatio: false
       }
   })
 
@@ -275,3 +291,41 @@ function getRandomId() {
 function refreshingButton() {
     location.reload();
 }
+
+// function enableButton() {
+//     if (nameIp.value && sleepIp.value && hydrationIp.value && activityIp.value) {
+//       submitBtn.disabled = false;
+//     } else {
+//       submitBtn.disabled = true;
+//     }
+// }
+
+function displayActivityForm() {
+    formSection.innerHTML += `<form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
+        Name <br><input type="text" name="fname" id="nameIp"><br>
+        Sleep <br><input type="text" name="fname" id="sleepIp"><br>
+        Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
+        Activity <br><input type="text" name="fname" id="activityIp"><br><br>
+    <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
+}
+
+function displayHydrationForm() {
+    formSection.innerHTML += `<form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
+        Name <br><input type="text" name="fname" id="nameIp"><br>
+        Sleep <br><input type="text" name="fname" id="sleepIp"><br>
+        Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
+        Activity <br><input type="text" name="fname" id="activityIp"><br><br>
+    <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
+
+}
+
+function displaySleepForm() {
+    formSection.innerHTML += `<form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
+        Name <br><input type="text" name="fname" id="nameIp"><br>
+        Sleep <br><input type="text" name="fname" id="sleepIp"><br>
+        Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
+        Activity <br><input type="text" name="fname" id="activityIp"><br><br>
+    <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
+
+}
+
