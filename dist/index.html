@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitlit</title>
     <link rel="stylesheet" href="./src/css/styles.css">
   </head>
@@ -13,14 +14,10 @@
         <section class="logo-container" id="logoContainer"></section>
         <section class="" id="formSection"></section>
           <form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
-          Name <br><input type="text" name="fname" id="nameIp"><br>
-          Sleep <br><input type="text" name="fname" id="sleepIp"><br>
-          Hydration <br><input type="text" name="fname" id="hydrationIp"><br>
-          Activity <br><input type="text" name="fname" id="activityIp"><br><br>
         <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>
         </form>
         <section class="dropdown">
-          <button class="dropbtn">User Data Entry</button>
+          <button class="dropbtn" id="dropBtn">User Data Entry</button>
           <aside class="dropdown-content">
             <a href="#" id="activityForm">Activity Data</a>
             <a href="#" id="sleepForm">Sleep Data</a>
@@ -41,17 +38,36 @@
             <button class="stairs-tab" id="stairsTab">stairs</button>
             <button class="minActive-tab" id="minActiveTab">minutes active</button>
           </nav>
-          <canvas class="hydration-chart" id="hydrationChart"></canvas>
+            <div hidden id="hydrationChartDiv">
+              <h1>H Y D R A T I O N</h1>
+              <canvas class="hydration-chart" id="hydrationChart"></canvas>
+            </div>
+            <div hidden id="stepsChartDiv">
+              <h1>S T E P S</h1>
+              <canvas class="steps-chart" id="stepsChart"></canvas>
+            </div>
+            <div hidden id="sleepChartDiv">
+              <h1>S L E E P</h1>
+              <canvas class="sleep-chart" id="sleepChart"></canvas>
+            </div>
+            <div hidden id="stairsChartDiv">
+              <h1>S T A I R S</h1>
+              <canvas class="stairs-chart" id="stairsChart"></canvas>
+            </div>
+            <div hidden id="minActiveChartDiv">
+              <h1>M I N U T E S A C T I V E</h1>
+              <canvas class="min-active-chart" id="minActiveChart"></canvas>
+            </div>
         </div>
         <div class="activity-box" id="activityBox"></div>
-        <div class="step-box" id="stepBox">
+        <!-- <div hidden class="step-box" id="stepBox">
           <h1>S T E P S</h1>
           <canvas class="steps-chart" id="stepsChart"></canvas>
-        </div>
-        <div class="sleep-box" id="sleepBox">
+        </div> -->
+        <!-- <div hidden class="sleep-box" id="sleepBox">
           <h1>S L E E P</h1>
-          <canvas class="sleep-chart" id="sleepChart"></canvas>
-        </div>
+          <canvas hidden class="sleep-chart" id="sleepChart"></canvas>
+        </div> -->
       </section>
       <section>
 

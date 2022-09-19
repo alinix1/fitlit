@@ -64,12 +64,11 @@ class Activity {
           }, 0)
           return Math.round(totals / getDate.length)
         }
-        
+
         getMilesWalked(id) {
           const activityById = this.getUserById()
           const getDate = activityById.find(user => user.date)
           const milesWalked = (getDate.numSteps * this.currentUser.strideLength) / 5280;
-          console.log(Math.round(milesWalked*2)/2)
           return Math.round(milesWalked*2)/2
         }
 
