@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,16 +12,31 @@
         <h1 class="fitlit-title" id ="fitlitTitle">F I T L I T</h1>
         <div class="welcome-text" id="welcomeText"></div>
         <section class="logo-container" id="logoContainer"></section>
-        <section class="" id="formSection"></section>
-          <form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
-        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>
-        </form>
+        <section class="" id="formSection">
+          <form hidden name="dataForm" class="form-box" id="sleepIp">
+            Hours Slept<br><input type="text" name="fname" id="hoursSleptIp"><br>
+            Sleep Quality(0-5)<br><input type="text" name="fname" id="qualityIp"><br>
+            Date<br><input type="date" name="fname" id="sleepDateIp" placeholder="yyyy/mm/dd"></br>
+          <input class="submit-button" id="sleepSubmitBtn" type="submit" value="Send it!" ><br>
+          <form hidden name="dataForm" class="form-box" id="sleepIp">
+            <!-- Minutes Active<br><input type="text" name="fname" id="minActiveIp"><br>
+            Flights Of Stairs<br><input type="text" name="fname" id="flightsStairsIp"><br>
+            Date<br><input type="date" name="fname" id="activeDateIp" placeholder="yyyy/mm/dd"></br>
+          <input class="submit-button" id="sleepSubmitBtn" type="submit" value="Send it!" ><br> -->
+          <!-- <form hidden name="dataForm" class="form-box" id="sleepIp">
+            Hours Slept<br><input type="text" name="fname" id="hoursSleptIp"><br>
+            Sleep Quality(0-5)<br><input type="text" name="fname" id="qualityIp"><br>
+            Date<br><input type="date" name="fname" id="sleepDateIp" placeholder="yyyy/mm/dd"></br>
+          <input class="submit-button" id="sleepSubmitBtn" type="submit" value="Send it!" ><br> -->
+        </section>
+
+      
         <section class="dropdown">
           <button class="dropbtn" id="dropBtn">User Data Entry</button>
           <aside class="dropdown-content">
-            <a href="#" id="activityForm">Activity Data</a>
-            <a href="#" id="sleepForm">Sleep Data</a>
-            <a href="#" id="hydrationForm">Hydration Data</a>
+            <a href="#" id="activityForm" class="activityInput">Activity Data</a>
+            <a href="#" id="sleepForm" class="sleepInput">Sleep Data</a>
+            <a href="#" id="hydrationForm" class="hydrationInput">Hydration Data</a>
           </aside>
         </section>
         <button class="refresh-button" id="refreshButton">Refresh</button>
@@ -30,7 +45,7 @@
         <div class="daily-box" id="dailyBox"></div>
         <div class="user-data-box" id="userDataBox"></div>
         <div class="hydration-box" id="hydrationBox">
-          <h1 class="chart-box-title">W E E K L Y&nbsp;&nbsp;C H A R T&nbsp;&nbsp;D A T A</h1>
+          <h1 class="chart-box-title" id="chartBoxTitle">W E E K L Y&nbsp;&nbsp;C H A R T&nbsp;&nbsp;D A T A</h1>
           <nav class="btn-nav" id="btnNav">
             <button class="sleep-tab" id="sleepTab">sleep</button>
             <button class="hydration-tab" id="hydrationTab">hydration</button>
@@ -38,24 +53,24 @@
             <button class="stairs-tab" id="stairsTab">stairs</button>
             <button class="minActive-tab" id="minActiveTab">minutes active</button>
           </nav>
-            <div hidden id="hydrationChartDiv">
-              <h1>H Y D R A T I O N</h1>
+            <div hidden class="chart-div" id="hydrationChartDiv">
+              <h4>H Y D R A T I O N</h4>
               <canvas class="hydration-chart" id="hydrationChart"></canvas>
             </div>
-            <div hidden id="stepsChartDiv">
-              <h1>S T E P S</h1>
+            <div hidden class="chart-div" id="stepsChartDiv">
+              <h4>S T E P S</h4>
               <canvas class="steps-chart" id="stepsChart"></canvas>
             </div>
-            <div hidden id="sleepChartDiv">
-              <h1>S L E E P</h1>
+            <div hidden class="chart-div" id="sleepChartDiv">
+              <h4>S L E E P</h4>
               <canvas class="sleep-chart" id="sleepChart"></canvas>
             </div>
-            <div hidden id="stairsChartDiv">
-              <h1>S T A I R S</h1>
+            <div hidden class="chart-div" id="stairsChartDiv">
+              <h4>S T A I R S</h4>
               <canvas class="stairs-chart" id="stairsChart"></canvas>
             </div>
-            <div hidden id="minActiveChartDiv">
-              <h1>M I N U T E S A C T I V E</h1>
+            <div hidden class="chart-div" id="minActiveChartDiv">
+              <h4>M I N U T E S A C T I V E</h4>
               <canvas class="min-active-chart" id="minActiveChart"></canvas>
             </div>
         </div>

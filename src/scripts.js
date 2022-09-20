@@ -3,11 +3,10 @@ import UserRepository from './UserRepository'
 import User from './User'
 import Sleep from './Sleep'
 import Hydration from './Hydration'
-import Chart from 'chart.js/auto'
+import Chart, { DatasetController } from 'chart.js/auto'
 import Activity from './Activity'
-import apiCalls from './apiCalls'
+import { apiCalls } from './apiCalls'
 import { userData, hydrationData, sleepData, activityData } from './userData'
-
 
 // --------------------------------------------------- QUERY SELECTORS
 const welcomeUserBox = document.getElementById('welcomeUserBox')
@@ -21,11 +20,12 @@ const refreshButton = document.getElementById('refreshButton')
 const welcomeSideBar = document.getElementById('welcomeText')
 const activityBox = document.getElementById('activityBox')
 const formBox = document.getElementById('formBox')
-const submitBtn = document.getElementById('submitBtn')
-const nameIp = document.getElementById('nameIp')
+const sleepSubmitBtn = document.getElementById('sleepSubmitBtn')
 const sleepIp = document.getElementById('sleepIp')
-const hydrationIp = document.getElementById('hydrationIp')
-const activityIp = document.getElementById('activityIp')
+// const nameIp = document.getElementById('nameIp')
+// const sleepIp = document.getElementById('sleepIp')
+// const hydrationIp = document.getElementById('hydrationIp')
+// const activityIp = document.getElementById('activityIp')
 const activityForm = document.getElementById('activityForm')
 const sleepForm = document.getElementById('sleepForm')
 const hydrationForm = document.getElementById('hydrationForm')
@@ -51,7 +51,6 @@ let hydrationInfo = []
 let sleepInfo = []
 let activityInfo = [];
 
-
 // --------------------------------------------------- EVENT LISTENERS
 
 window.addEventListener('load', instantiateData)
@@ -64,10 +63,10 @@ stepsTab.addEventListener('click', showStepsChart)
 sleepTab.addEventListener('click', showSleepChart)
 stairsTab.addEventListener('click', showStairsChart)
 minActiveTab.addEventListener('click', showMinActiveChart)
-
-
+sleepSubmitBtn.addEventListener('click', postUserInput)
 
 // --------------------------------------------------- FETCH PROMISES
+
 Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSleepData(), apiCalls.getActivityData()])
   .then((data) => {
     const allUserData = data.reduce((userList, userItem) => {
@@ -77,6 +76,19 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSl
     assignUser()
     displayAllData()
     })
+
+// --------------------------------------------------- POST API DATA
+
+  function postUserInput() {
+    hideAllCharts()
+    show(dropBtn)
+    const userHoursSlept =  document.getElementById('hoursSleptIp').value
+    const userHoursQualitySleep = document.getElementById('qualityIp').value
+    const userDate = document.getElementById('sleepDateIp').value
+    let dataToSend = { userID: singleUser.id, date: userDate, hoursSlept: userHoursSlept, sleepQuality: userHoursQualitySleep }
+    apiCalls.addSleepData(dataToSend)
+    
+  }
 
 // --------------------------------------------------- FUNCTIONS
 
@@ -172,8 +184,8 @@ function displayChartData() {
                   beginAtZero: true
               }
           },
-          responsive: false,
-        //   aspectRatio: 1,
+          responsive: true,
+          aspectRatio: 1 | 4,
           maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
@@ -211,8 +223,8 @@ function displayChartData() {
                     beginAtZero: true
                 }
             },
-            responsive: false,
-            // aspectRatio: 1,
+            responsive: true,
+            aspectRatio: 1 | 4,
             maintainAspectRatio: true
         }
       })
@@ -248,8 +260,8 @@ function displayChartData() {
                     beginAtZero: true
                 }
             },
-            responsive: false,
-                // aspectRatio: 1,
+            responsive: true,
+                aspectRatio: 1 | 4,
             maintainAspectRatio: true
         }
       })
@@ -275,8 +287,8 @@ function displayChartData() {
                   beginAtZero: true
               }
           },
-          responsive: false,
-        //   aspectRatio: 1,
+          responsive: true,
+          aspectRatio: 1 | 4,
           maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
@@ -302,19 +314,19 @@ function displayChartData() {
                   beginAtZero: true
               }
           },
-          responsive: false,
-        //   aspectRatio: 1,
+          responsive: true,
+          aspectRatio: 1 | 4,
           maintainAspectRatio: true// maintainAspectRatio: false
       }
   })
 }
 
 function getRandomId() {
-    return Math.floor(Math.random() * 49) +1
+    return Math.floor(Math.random() * 49) + 1
 }
 
 function refreshingButton() {
-    location.reload();
+    window.location.reload();
 }
 
 function displayActivityForm() {
@@ -322,7 +334,7 @@ function displayActivityForm() {
   hydrationForm.classList.add('hidden')
   sleepForm.classList.add('hidden')
     formSection.innerHTML += `<form name="dataForm" class="form-box" id="activityForm" action="" onsubmit="return validateForm()" method="post">
-          Minutes Active <br><input type="text" name="fname" id="nameIp"><br>
+          Minutes Active <br><input type="text" name="fname" id="activityIp"><br>
           Flights Of Stairs <br><input type="text" name="fname" id="nameIp"><br>
           Steps <br><input type="text" name="fname" id="nameIp"><br>
         <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
@@ -338,13 +350,10 @@ function displayHydrationForm() {
 }
 
 function displaySleepForm() {
-  hydrationForm.classList.add('hidden')
-  activityForm.classList.add('hidden')
-    formSection.innerHTML += `<form name="dataForm" class="form-box" id="sleepForm" action="" onsubmit="return validateForm()" method="post">
-          Hours Slept<br><input type="text" name="fname" id="nameIp"><br>
-          Sleep Quality(0-5)<br><input type="text" name="fname" id="nameIp"><br>
-        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
-
+  hide(hydrationForm)
+  hide(activityForm)
+  show(sleepIp)
+  hide(dropBtn)
 }
 
 function hideAllCharts() {
@@ -381,6 +390,6 @@ function show(e) {
   e.removeAttribute('hidden')
 }
 
-function hide(item) {
-  item.setAttribute('hidden', 'hidden')
+function hide(e) {
+  e.setAttribute('hidden', 'hidden')
 }
