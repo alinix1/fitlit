@@ -14,24 +14,9 @@ main {
   text-align: center;
 }
 
-/* div {
-  color: #000000;
-  background-color: #ffffff;
-  opacity: 0.9;
-  border-radius: 25px;
-  transition: all 0.3s ease-in-out;
-} */
-
-/* div:hover {
-  background-position: 0;
-  box-shadow: 5px 5px 10px 2px #BB2026;
-  background-color: #252020;
-  color: #ffffff;
-} */
-
 /* -----------------------------------------------LEFT-SIDE */
 .form-box {
-  margin-bottom: 80px;
+  margin-bottom: 10px;
 }
 
 .refresh-button {
@@ -83,7 +68,7 @@ main {
   width: 70px;
   height: 30px;
   transition-duration: 0.5s;
-  margin-top: 200px;
+  margin-top: 180px;
 }
 
 .refresh-button:hover, .submit-button:hover {
@@ -100,6 +85,7 @@ main {
   background-color:#9199A0;
   color: black;
   padding: 16px;
+  margin-top: 30px;
   font-size: 16px;
   border: none;
 }
@@ -233,20 +219,6 @@ main {
   transition: all 0.3s ease-in-out;
 }
 
-.sleep-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 400px;
-  width: 33%;
-  color: #252020;
-  color: #000000;
-  background-color: #ffffff;
-  opacity: 0.9;
-  border-radius: 25px;
-  transition: all 0.3s ease-in-out;
-}
-
 .hydration-box {
   display: flex;
   flex-direction: column;
@@ -295,7 +267,7 @@ main {
 
 /* ----------------------------------------------- BUTTON-NAVIGATION */
 .btn-nav {
-  /* overflow: hidden; */
+  overflow: hidden;
   border-top: 1px solid #252020;
   background-color: #ffffff;
   display: flex;
@@ -304,7 +276,6 @@ main {
 
 .btn-nav button {
   background-color: inherit;
-  /* float: center; */
   border: none;
   outline: none;
   cursor: pointer;
@@ -320,4 +291,3 @@ main {
 .btn-nav.active {
   background-color: lightcoral;
 }
-
