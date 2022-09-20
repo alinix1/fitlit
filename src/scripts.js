@@ -55,7 +55,7 @@ let activityInfo = [];
 
 // --------------------------------------------------- EVENT LISTENERS
 window.addEventListener('load', instantiateData)
-refreshButton.addEventListener('click', refreshingButton);
+refreshButton.addEventListener('click', refreshingButton)
 activityForm.addEventListener('click', displayActivityForm)
 sleepForm.addEventListener('click',displaySleepForm)
 hydrationForm.addEventListener('click',displayHydrationForm)
@@ -90,7 +90,6 @@ sleepSubmitBtn.addEventListener('click', () => {
 })
 
 // --------------------------------------------------- FUNCTIONS
-
 function instantiateData(data) {
   users = data.userData.map(user => new User(user))
   userRepository = new UserRepository(users)
