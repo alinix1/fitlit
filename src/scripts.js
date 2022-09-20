@@ -5,9 +5,9 @@ import Sleep from './Sleep'
 import Hydration from './Hydration'
 import Chart from 'chart.js/auto'
 import Activity from './Activity'
-import apiCalls from './apiCalls'
+// import apiCalls from './apiCalls'
 import { userData, hydrationData, sleepData, activityData } from './userData'
-
+import { apiCalls, postAllData } from './apiCalls'
 
 // --------------------------------------------------- QUERY SELECTORS
 const welcomeUserBox = document.getElementById('welcomeUserBox')
@@ -41,6 +41,8 @@ const stepsChartDiv = document.getElementById('stepsChartDiv')
 const sleepChartDiv = document.getElementById('sleepChartDiv')
 const stairsChartDiv = document.getElementById('stairsChartDiv')
 const minActiveChartDiv = document.getElementById('minActiveChartDiv')
+const sleepSubmitBtn = document.getElementById('sleepSubmitBtn')
+
 // --------------------------------------------------- GLOBAL VARIABLES
 let userRepository = new UserRepository()
 let user
@@ -51,9 +53,7 @@ let hydrationInfo = []
 let sleepInfo = []
 let activityInfo = [];
 
-
 // --------------------------------------------------- EVENT LISTENERS
-
 window.addEventListener('load', instantiateData)
 refreshButton.addEventListener('click', refreshingButton);
 activityForm.addEventListener('click', displayActivityForm)
@@ -65,8 +65,6 @@ sleepTab.addEventListener('click', showSleepChart)
 stairsTab.addEventListener('click', showStairsChart)
 minActiveTab.addEventListener('click', showMinActiveChart)
 
-
-
 // --------------------------------------------------- FETCH PROMISES
 Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSleepData(), apiCalls.getActivityData()])
   .then((data) => {
@@ -76,7 +74,20 @@ Promise.all([apiCalls.getUserData(), apiCalls.getHydrationData(), apiCalls.getSl
     instantiateData(allUserData)
     assignUser()
     displayAllData()
-    })
+  })
+
+// --------------------------------------------------- POST API DATA
+sleepSubmitBtn.addEventListener('click', () => {
+  const userHoursSlept =  document.getElementById('hoursSleptIp').value
+  const userHoursQualitySleep = document.getElementById('qualityIp').value
+  const userDate = document.getElementById('sleepDateIp').value
+  let dataToSend = { userID: singleUser.id, date: userDate, hoursSlept: userHoursSlept, sleepQuality: userHoursQualitySleep }
+  postAllData.postSleepData('http://localhost:3001/api/v1/sleep' ,dataToSend)
+  hideAllCharts()
+  show(dropBtn)
+  console.log('weeeeee', dataToSend)
+  console.log('HERE IT IS', postAllData.postSleepData(dataToSend))
+})
 
 // --------------------------------------------------- FUNCTIONS
 
@@ -103,7 +114,7 @@ function assignUser() {
 }
 
 function displayWelcomeData() {
-  welcomeSideBar.innerHTML += `<h4 class="welcome-title">W E L C O M E</h4> <p class="welcome-name">${singleUser.userFirstName(singleUser.id)}</p>`
+  welcomeSideBar.innerHTML += `<h1 class="welcome-title">W E L C O M E</h1> <p class="welcome-name">${singleUser.userFirstName(singleUser.id)}</p>`
 }
 
 function displayCurrentUserData() {
@@ -114,22 +125,21 @@ function displayCurrentUserData() {
 
 function displayUserData() {
   dailyBox.innerHTML += `<h1 class='headers' id="dailyData">D A I L Y D A T A</h1> <section class="daily-left" id="dailyBar">WATER CONSUMED<br> ${hydrationInfo.getFluidOuncesByDate(singleUser.id)}oz <br><br>
-   HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
-   SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5
-   <br><br>AVERAGE USER STEPS<br>${activityInfo.getAverageStepsByDate()}<br><br>
-   AVERAGE USER ACTIVE TIME<br>${activityInfo.getAverageActivityByDate()}<br><br>
-   AVERAGE USER STAIRS<br>${activityInfo.getAverageStairsByDate()}<br><br>
-   </section>
-
-   `
+    HOURS SLEPT<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "hoursSlept")}hrs <br><br>
+    SLEEP QUALITY<br> ${sleepInfo.calculateAverageSleep(singleUser.id, "sleepQuality")}/5
+    <br><br>AVERAGE USER STEPS<br>${activityInfo.getAverageStepsByDate()}<br><br>
+    AVERAGE USER ACTIVE TIME<br>${activityInfo.getAverageActivityByDate()}<br><br>
+    AVERAGE USER STAIRS<br>${activityInfo.getAverageStairsByDate()}<br><br>
+    </section>`
 }
 function displayActivityInfo() {
-   activityBox.innerHTML += `<h1 class='headers'>A C T I V I T Y</h1> <br> MOST STAIRS CLIMBED <br> ${activityInfo.getHighestClimbingRecord(singleUser.id)}<br>
-   <br> MINUTES ACTIVE <br> ${activityInfo.getMinActiveByDate(singleUser.id)}
-   <br> <br> STEPS <br> ${activityInfo.getStepsToday(singleUser.id)}<br>
-   <br>${activityInfo.reachStepGoal(singleUser.id)} <br><br>
-   You trotted a whole ${activityInfo.getMilesWalked(singleUser.id)} miles today 💪
-   `}
+  activityBox.innerHTML += `<h1 class='headers'>A C T I V I T Y</h1> <br> MOST STAIRS CLIMBED <br> ${activityInfo.getHighestClimbingRecord(singleUser.id)}<br>
+    <br> MINUTES ACTIVE <br> ${activityInfo.getMinActiveByDate(singleUser.id)}
+    <br> <br> STEPS <br> ${activityInfo.getStepsToday(singleUser.id)}<br>
+    <br>${activityInfo.reachStepGoal(singleUser.id)} <br><br>
+    You trotted a whole ${activityInfo.getMilesWalked(singleUser.id)} miles today 💪
+    `
+}
 
 function displayChartData() {
   const weeklyFluidConsumption = hydrationInfo.getFluidOuncesConsumedPerWeek(singleUser.id)
@@ -310,18 +320,19 @@ function displayChartData() {
 }
 
 function getRandomId() {
-    return Math.floor(Math.random() * 49) +1
+  return Math.floor(Math.random() * 49) +1
 }
 
 function refreshingButton() {
-    location.reload();
+  location.reload();
 }
 
 function displayActivityForm() {
   dropBtn.classList.add('hidden')
   hydrationForm.classList.add('hidden')
   sleepForm.classList.add('hidden')
-    formSection.innerHTML += `<form name="dataForm" class="form-box" id="activityForm" action="" onsubmit="return validateForm()" method="post">
+  activityForm.classList.remove('hidden')
+    formSection.innerHTML = `<form name="dataForm" class="form-box" id="activityForm" action="" onsubmit="return validateForm()" method="post">
           Minutes Active <br><input type="text" name="fname" id="nameIp"><br>
           Flights Of Stairs <br><input type="text" name="fname" id="nameIp"><br>
           Steps <br><input type="text" name="fname" id="nameIp"><br>
@@ -329,22 +340,20 @@ function displayActivityForm() {
 }
 
 function displayHydrationForm() {
-    activityForm.classList.add('hidden')
-    sleepForm.classList.add('hidden')
-    formSection.innerHTML += `<form name="dataForm" class="form-box" id="hydrationForm" action="" onsubmit="return validateForm()" method="post">
+  dropBtn.classList.add('hidden')
+  activityForm.classList.add('hidden')
+  sleepForm.classList.add('hidden')
+  hydrationForm.classList.remove('hidden')
+    formSection.innerHTML = `<form name="dataForm" class="form-box" id="hydrationForm" action="" onsubmit="return validateForm()" method="post">
           Water Drank(oz)<br><input type="text" name="fname" id="nameIp"><br>
         <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
-
 }
 
 function displaySleepForm() {
-  hydrationForm.classList.add('hidden')
-  activityForm.classList.add('hidden')
-    formSection.innerHTML += `<form name="dataForm" class="form-box" id="sleepForm" action="" onsubmit="return validateForm()" method="post">
-          Hours Slept<br><input type="text" name="fname" id="nameIp"><br>
-          Sleep Quality(0-5)<br><input type="text" name="fname" id="nameIp"><br>
-        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>`
-
+  hide(hydrationForm)
+  hide(activityForm)
+  show(sleepIp)
+  hide(dropBtn)
 }
 
 function hideAllCharts() {

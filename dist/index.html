@@ -9,34 +9,41 @@
   <body>
     <main>
       <section class="left-bar" id="leftBar">
-        <h1 class="fitlit-title" id ="fitlitTitle">F I T L I T</h1>
-        <div class="welcome-text" id="welcomeText"></div>
-        <section class="logo-container" id="logoContainer"></section>
-        <section class="" id="formSection"></section>
-          <form hidden name="dataForm" class="form-box" id="formBox" action="" onsubmit="return validateForm()" method="post">
-        <input class="submit-button" id="submitBtn" type="submit" value="Send it!" disabled><br>
-        </form>
+        <h1 class="fitlit-title" id ="fitlitTitle" tabindex="0">F I T L I T</h1>
+        <div class="welcome-text" id="welcomeText" tabindex="0"></div>
+        <section class="logo-container" id="logoContainer" tabindex="0" aria-label="logo"></section>
+
+        <section tabindex="0" id="formSection">
+          <form hidden name="dataForm" class="form-box" id="sleepIp">
+            Hours Slept<br><input type="text" name="fname" id="hoursSleptIp"><br>
+            Sleep Quality(0-5)<br><input type="text" name="fname" id="qualityIp"><br>
+            Date<br><input type="date" name="fname" id="sleepDateIp" placeholder="yyyy/mm/dd"></br>
+          <input class="submit-button" id="sleepSubmitBtn" type="submit" value="Send it!" ><br>
+          <form hidden name="dataForm" class="form-box" id="sleepIp">
+        </section>
+        
+
         <section class="dropdown">
-          <button class="dropbtn" id="dropBtn">User Data Entry</button>
-          <aside class="dropdown-content">
-            <a href="#" id="activityForm">Activity Data</a>
-            <a href="#" id="sleepForm">Sleep Data</a>
-            <a href="#" id="hydrationForm">Hydration Data</a>
+          <button class="dropbtn" id="dropBtn" tabindex="0">User Data Entry</button>
+          <aside class="dropdown-content" role="region" tabindex="0">
+            <a id="activityForm">Activity Data</a>
+            <a id="sleepForm">Sleep Data</a>
+            <a id="hydrationForm">Hydration Data</a>
           </aside>
         </section>
         <button class="refresh-button" id="refreshButton">Refresh</button>
       </section>
       <section class="widget-box" id="widgetBox">
-        <div class="daily-box" id="dailyBox"></div>
-        <div class="user-data-box" id="userDataBox"></div>
-        <div class="hydration-box" id="hydrationBox">
-          <h1 class="chart-box-title" id="chartBoxTitle">W E E K L Y&nbsp;&nbsp;C H A R T&nbsp;&nbsp;D A T A</h1>
-          <nav class="btn-nav" id="btnNav">
-            <button class="sleep-tab" id="sleepTab">sleep</button>
-            <button class="hydration-tab" id="hydrationTab">hydration</button>
-            <button class="steps-tab" id="stepsTab">steps</button>
-            <button class="stairs-tab" id="stairsTab">stairs</button>
-            <button class="minActive-tab" id="minActiveTab">minutes active</button>
+        <div class="daily-box" id="dailyBox" tabindex="0"></div>
+        <div class="user-data-box" id="userDataBox" tabindex="0"></div>
+        <div class="hydration-box" id="hydrationBox" tabindex="0">
+          <h1 class="chart-box-title" id="chartBoxTitle" tabindex="0">W E E K L Y&nbsp;&nbsp;C H A R T&nbsp;&nbsp;D A T A</h1>
+          <nav class="btn-nav" id="btnNav" role="menu">
+            <button class="sleep-tab" id="sleepTab" tabindex="0" role="menuitem">sleep</button>
+            <button class="hydration-tab" id="hydrationTab" tabindex="0" role="menuitem">hydration</button>
+            <button class="steps-tab" id="stepsTab" tabindex="0" role="menuitem">steps</button>
+            <button class="stairs-tab" id="stairsTab" tabindex="0" role="menuitem">stairs</button>
+            <button class="minActive-tab" id="minActiveTab" tabindex="0" role="menuitem">minutes active</button>
           </nav>
             <div hidden class="chart-div" id="hydrationChartDiv">
               <h4>H Y D R A T I O N</h4>
@@ -59,7 +66,7 @@
               <canvas class="min-active-chart" id="minActiveChart"></canvas>
             </div>
         </div>
-        <div class="activity-box" id="activityBox"></div>
+        <div class="activity-box" id="activityBox" tabindex="0"></div>
       </section>
     </main>
     <script src="bundle.js"></script>
